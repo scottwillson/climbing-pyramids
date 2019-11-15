@@ -2,44 +2,11 @@
 
 <h3>Indoor Top Roping</h3>
 <div class="pyramid">
+  <% @pyramid.grades.each do |grade| %>
   <div class="grade">
-    <div class="climb">5.11c</div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-    <div class="climb"></div>
+    <% grade.climbs.each do |climb| %>
+    <div class="climb"><%= climb.grade %></div>
   </div>
-  <div class="grade">
-    <div class="climb sent">5.11b</div>
-    <div class="climb">5.11b</div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-  </div>
-  <div class="grade">
-    <div class="climb sent">5.11a</div>
-    <div class="climb sent">5.11a</div>
-    <div class="climb">5.11a</div>
-    <div class="climb">5.11a</div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-    <div class="climb"></div>
-  </div>
-  <div class="grade">
-    <div class="climb sent">5.10d</div>
-    <div class="climb sent">5.10d</div>
-    <div class="climb sent">5.10d</div>
-    <div class="climb sent">5.10d</div>
-    <div class="climb sent">5.10d</div>
-    <div class="climb sent">5.10d</div>
-    <div class="climb sent">5.10d</div>
-    <div class="climb">5.10d</div>
-  </div>
+  <% end %>
 </div>
+<% end %>
