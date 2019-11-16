@@ -5,7 +5,7 @@
   <% @pyramid.pyramid_grades.each do |pyramid_grade| %>
     <div class="pyramid_grade row">
       <% pyramid_grade.climbs.each do |climb| %>
-        <div class="climb col-1"><%= climb.name %></div>
+        <div class="climb col-1 border"><%= climb.name %></div>
       <% end %>
     </div>
   <% end %>
