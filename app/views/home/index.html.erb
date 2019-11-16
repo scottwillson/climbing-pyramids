@@ -3,10 +3,10 @@
 <h3>Indoor Top Roping</h3>
 <div class="pyramid">
   <% @pyramid.pyramid_grades.each do |pyramid_grade| %>
-  <div class="pyramid_grade">
-    <% pyramid_grade.climbs.each do |climb| %>
-    <div class="climb"><%= climb.grade %></div>
-  </div>
-  <% end %>
+    <div class="pyramid_grade">
+      <% pyramid_grade.climbs.each do |climb| %>
+        <div class="climb"><%= climb.name %></div>
+      <% end %>
+    </div>
 </div>
 <% end %>
