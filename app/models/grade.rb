@@ -22,13 +22,15 @@ class Grade
   end
 
   def self.new_from_string(string)
+    return string if string.is_a?(Grade)
+
     decimal = decimal_from_string(string)
     letter = letter_from_string(string)
     Grade.new(decimal: decimal, letter: letter)
   end
 
   def initialize(decimal:, letter: "")
-    @decimal = decimal
+    @decimal = decimal.to_i
     @letter = letter
   end
 
