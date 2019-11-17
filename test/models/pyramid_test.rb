@@ -14,4 +14,10 @@ class PyramidTest < ActiveSupport::TestCase
     assert_equal ["5.11d", "5.11d", "5.11d", "5.11d"], pyramid.pyramid_grades.third.climbs.map(&:name)
     assert_equal ["5.11c", "5.11c", "5.11c", "5.11c", "5.11c", "5.11c", "5.11c", "5.11c"], pyramid.pyramid_grades.fourth.climbs.map(&:name)
   end
+
+  test ".new_from_climbs no climbs" do
+    pyramid = Pyramid.new_from_climbs
+    assert_equal 4, pyramid.pyramid_grades.size
+    assert_equal ["5.9"], pyramid.pyramid_grades.first.climbs.map(&:name)    
+  end
 end

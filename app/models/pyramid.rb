@@ -13,6 +13,10 @@ class Pyramid < ApplicationRecord
     pyramid
   end
 
+  def self.new_from_climbs
+    new_from_redpoint("5.6")
+  end
+
   def pyramid_grades
     @pyramid_grades ||= []
   end
