@@ -25,6 +25,20 @@ class PyramidTest < ActiveSupport::TestCase
     Climb.create!(grade: "5.10a")
     pyramid = Pyramid.new_from_climbs
     assert_equal 4, pyramid.pyramid_grades.size
-    assert_equal ["5.10d"], pyramid.pyramid_grades.first.climbs.map(&:name)
+
+    climb = pyramid.pyramid_grades.first.climbs.first
+    assert_equal "5.10d", climb.name
+    refute climb.sent?
+    assert climb.goal?
+
+    climb = pyramid.pyramid_grades.last.climbs.first
+    assert_equal "5.10a", climb.name
+    assert climb.sent?
+    assert climb.goal?
+
+    climb = pyramid.pyramid_grades.last.climbs.last
+    assert_equal "5.10a", climb.name
+    refute climb.sent?
+    assert climb.goal?
   end
 end

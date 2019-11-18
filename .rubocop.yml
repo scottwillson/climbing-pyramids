@@ -1,0 +1,60 @@
+require:
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 2.6
+  TargetRailsVersion: 6.0
+
+Rails:
+  Enabled: true
+#
+# ClassLength:
+#   Enabled: false
+
+Documentation:
+  Enabled: false
+
+# Layout/SpaceInsidePercentLiteralDelimiters:
+#   Enabled: false
+
+LineLength:
+  Max: 160
+
+# MethodLength:
+#   Enabled: false
+
+Metrics/AbcSize:
+  Max: 40
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/ClassLength:
+  CountComments: false
+  Max: 300
+
+Metrics/ModuleLength:
+  CountComments: false
+  Max: 300
+
+Naming/VariableNumber:
+  Enabled: false
+
+# Rails/FilePath:
+#   Enabled: false
+
+SingleLineBlockParams:
+  Enabled: false
+
+StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/GuardClause:
+  Enabled: false
+
+# Style/ClassAndModuleChildren:
+#   EnforcedStyle: compact
+
+Style/NumericPredicate:
+  Enabled: false

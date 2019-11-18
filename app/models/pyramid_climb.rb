@@ -1,10 +1,16 @@
 class PyramidClimb
-  attr_reader :name
+  attr_reader :grade
+  attr_accessor :goal
+  attr_accessor :sent
 
-  def initialize(name, goal: false, sent: false)
+  def initialize(grade, goal: false, sent: false)
     @goal = goal
-    @name = name
+    @grade = grade
     @sent = sent
+  end
+
+  def name
+    grade.name
   end
 
   def goal?
