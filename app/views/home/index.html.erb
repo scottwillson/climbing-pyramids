@@ -4,11 +4,15 @@
 <div class="pyramid">
   <% @pyramid.pyramid_grades.each do |pyramid_grade| %>
     <div class="pyramid_grade row">
-      <% pyramid_grade.climbs.each do |climb| %>
-        <%= tag.div class: "climb col-1 border #{pyramid_climb_class(climb)}" do %>
-          <%= climb.name %>
-        <% end %>
-      <% end %>
+      <div class="col-12">
+        <div class="btn-group" role="group" aria-label="Pyramid row">
+          <% pyramid_grade.climbs.each do |climb| %>
+            <%= tag.button type: "button", class: "climb btn #{pyramid_climb_class(climb)}" do %>
+              <%= climb.name %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>
