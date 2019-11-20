@@ -2,12 +2,15 @@
 
 <h3>Indoor Top Roping</h3>
 <div class="pyramid">
-  <% @pyramid.pyramid_grades.each do |pyramid_grade| %>
+  <% @pyramid.pyramid_grades.each.with_index do |pyramid_grade, row_index| %>
     <div class="pyramid_grade row">
       <div class="col-12">
         <div class="btn-group" role="group" aria-label="Pyramid row">
-          <% pyramid_grade.climbs.each do |climb| %>
-            <%= tag.button type: "button", class: "climb btn #{pyramid_climb_class(climb)}" do %>
+          <% pyramid_grade.climbs.each.with_index do |climb, col_index| %>
+            <%= link_to sends_path(send: { decimal: climb.grade.decimal, letter: climb.grade.letter }),
+                method: :post,
+                class: "climb btn #{pyramid_climb_class(climb)}",
+                id: "climb-#{row_index}-#{col_index}" do %>
               <%= climb.name %>
             <% end %>
           <% end %>

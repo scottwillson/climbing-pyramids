@@ -4,13 +4,13 @@ class Pyramid < ApplicationRecord
     pyramid = Pyramid.new
     grades = (redpoint_grade..redpoint_grade.plus(3))
     grades.reverse_each.with_index do |grade, index|
-      pyramid_grade = PyramidGrade.new(grade.name)
+      pyramid_grade = PyramidGrade.new(grade)
       (2**index).times do
-        pyramid_grade.climbs << PyramidClimb.new(grade)
+        pyramid_grade.climbs << PyramidClimb.new(grade, goal: true)
       end
       pyramid.pyramid_grades << pyramid_grade
     end
-    pyramid.mark_sends!
+    pyramid
   end
 
   def self.new_from_climbs
@@ -23,15 +23,15 @@ class Pyramid < ApplicationRecord
   end
 
   def mark_sends!
-    sent_grades = Climb.all.map(&:grade)
-    pyramid_grades.each do |pyramid_grade|
-      pyramid_grade.climbs.each do |pyramid_climb|
-        pyramid_climb.goal = true
-        if pyramid_climb.grade.in?(sent_grades)
-          pyramid_climb.sent = true
-          sent_grades.pop
-        end
-      end
+    # Not efficient with large number of climbs. Could be constrained.
+    Climb.all.map(&:grade).each do |sent_grade|
+      pyramid_grade = pyramid_grades.detect { |g| g.grade == sent_grade }
+      next unless pyramid_grade
+
+      pyramid_climb = pyramid_grade.climbs.detect { |c| c.grade == sent_grade && !c.sent? }
+      next unless pyramid_climb
+
+      pyramid_climb.sent = true
     end
     self
   end

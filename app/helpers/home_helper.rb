@@ -3,7 +3,9 @@ module HomeHelper
     if climb.sent? && climb.goal?
       "sent goal btn-success"
     elsif climb.sent?
-      "sent btn-info"
+      "sent btn-light"
+    elsif climb.goal?
+      "goal btn-light"
     else
       "btn-light"
     end

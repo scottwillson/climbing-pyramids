@@ -1,8 +1,12 @@
 class PyramidGrade
-  attr_reader :name
+  attr_reader :grade
 
-  def initialize(name)
-    @name = name
+  def initialize(grade)
+    @grade = grade
+  end
+
+  def name
+    grade.name
   end
 
   def climbs
