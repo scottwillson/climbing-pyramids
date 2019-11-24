@@ -18,4 +18,11 @@ class SendsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 11, grade.decimal
     assert_equal "c", grade.letter
   end
+
+  test "destroy" do
+    climb = Climb.create!(grade_decimal: 6)
+    delete send_path(climb.id)
+    assert_redirected_to root_path
+    assert_equal 0, Climb.count
+  end
 end

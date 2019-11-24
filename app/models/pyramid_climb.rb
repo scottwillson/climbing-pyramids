@@ -1,5 +1,6 @@
 class PyramidClimb
   attr_reader :grade
+  attr_accessor :climb_id
   attr_accessor :goal
   attr_accessor :sent
 

@@ -7,11 +7,20 @@
       <div class="col-12">
         <div class="btn-group" role="group" aria-label="Pyramid row">
           <% pyramid_grade.climbs.each.with_index do |climb, col_index| %>
-            <%= link_to sends_path(send: { decimal: climb.grade.decimal, letter: climb.grade.letter }),
-                method: :post,
+            <% if climb.sent? %>
+            <%= link_to send_path(climb.climb_id),
+                method: :delete,
                 class: "climb btn #{pyramid_climb_class(climb)}",
                 id: "climb-#{row_index}-#{col_index}" do %>
               <%= climb.name %>
+            <% end %>
+            <% else %>
+              <%= link_to sends_path(send: { decimal: climb.grade.decimal, letter: climb.grade.letter }),
+                  method: :post,
+                  class: "climb btn #{pyramid_climb_class(climb)}",
+                  id: "climb-#{row_index}-#{col_index}" do %>
+                <%= climb.name %>
+              <% end %>
             <% end %>
           <% end %>
         </div>

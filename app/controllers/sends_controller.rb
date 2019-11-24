@@ -5,6 +5,12 @@ class SendsController < ApplicationController
     redirect_to root_path
   end
 
+  def destroy
+    climb = Climb.find(params[:id])
+    climb.destroy!
+    redirect_to root_path
+  end
+
   private
 
   def send_params

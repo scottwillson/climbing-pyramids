@@ -24,7 +24,8 @@ class Pyramid < ApplicationRecord
 
   def mark_sends!
     # Not efficient with large number of climbs. Could be constrained.
-    Climb.all.map(&:grade).each do |sent_grade|
+    Climb.order(:created_at).each do |climb|
+      sent_grade = climb.grade
       pyramid_grade = pyramid_grades.detect { |g| g.grade == sent_grade }
       next unless pyramid_grade
 
@@ -32,6 +33,7 @@ class Pyramid < ApplicationRecord
       next unless pyramid_climb
 
       pyramid_climb.sent = true
+      pyramid_climb.climb_id = climb.id
     end
     self
   end
