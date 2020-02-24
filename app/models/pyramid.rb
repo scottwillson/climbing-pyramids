@@ -1,4 +1,12 @@
 class Pyramid < ApplicationRecord
+  belongs_to :discipline
+
+  validates :discipline, presence: true
+
+  default_value_for :discipline do
+    Discipline.find_or_create_by(name: "Outdoor Lead")
+  end
+
   def self.new_from_redpoint(redpoint)
     redpoint_grade = Grade.new_from_string(redpoint)
     pyramid = Pyramid.new

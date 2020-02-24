@@ -22,7 +22,7 @@ class PyramidTest < ActiveSupport::TestCase
   end
 
   test ".new_from_climbs" do
-    Climb.create!(grade: "5.10a")
+    Climb.create!(grade: "5.10a", discipline: Discipline.create!(name: "TR"))
     pyramid = Pyramid.new_from_climbs
     assert_equal 4, pyramid.pyramid_grades.size
 
@@ -43,9 +43,10 @@ class PyramidTest < ActiveSupport::TestCase
   end
 
   test ".new_from_climbs many climbs" do
-    Climb.create!(grade: "5.7")
-    Climb.create!(grade: "5.8")
-    Climb.create!(grade: "5.7")
+    tr = Discipline.create!(name: "Indoor Top Rope")
+    Climb.create!(grade: "5.7", discipline: tr)
+    Climb.create!(grade: "5.8", discipline: tr)
+    Climb.create!(grade: "5.7", discipline: tr)
     pyramid = Pyramid.new_from_climbs
     assert_equal 4, pyramid.pyramid_grades.size
 

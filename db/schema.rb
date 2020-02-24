@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_17_173717) do
+ActiveRecord::Schema.define(version: 2019_11_24_215026) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,11 +20,21 @@ ActiveRecord::Schema.define(version: 2019_11_17_173717) do
     t.string "grade_letter", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "discipline_id"
+    t.index ["discipline_id"], name: "index_climbs_on_discipline_id"
+  end
+
+  create_table "disciplines", force: :cascade do |t|
+    t.string "name", default: "Unamed", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "pyramids", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "discipline_id"
+    t.index ["discipline_id"], name: "index_pyramids_on_discipline_id"
   end
 
 end

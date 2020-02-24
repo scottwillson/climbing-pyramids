@@ -1,30 +1,32 @@
 <h2>Climbing Pyramids</h2>
 
-<h3>Indoor Top Roping</h3>
-<div class="pyramid">
-  <% @pyramid.pyramid_grades.each.with_index do |pyramid_grade, row_index| %>
-    <div class="pyramid_grade row">
-      <div class="col-12">
-        <div class="btn-group" role="group" aria-label="Pyramid row">
-          <% pyramid_grade.climbs.each.with_index do |climb, col_index| %>
-            <% if climb.sent? %>
-            <%= link_to send_path(climb.climb_id),
-                method: :delete,
-                class: "climb btn #{pyramid_climb_class(climb)}",
-                id: "climb-#{row_index}-#{col_index}" do %>
-              <%= climb.name %>
-            <% end %>
-            <% else %>
-              <%= link_to sends_path(send: { decimal: climb.grade.decimal, letter: climb.grade.letter }),
-                  method: :post,
-                  class: "climb btn #{pyramid_climb_class(climb)}",
-                  id: "climb-#{row_index}-#{col_index}" do %>
-                <%= climb.name %>
+<% @pyramids.each do |pyramid| %>
+  <h3><%= pyramid.discipline.name %></h3>
+  <div class="pyramid">
+    <% pyramid.pyramid_grades.each.with_index do |pyramid_grade, row_index| %>
+      <div class="pyramid_grade row">
+        <div class="col-12">
+          <div class="btn-group" role="group" aria-label="Pyramid row">
+            <% pyramid_grade.climbs.each.with_index do |climb, col_index| %>
+              <% if climb.sent? %>
+                <%= link_to send_path(climb.climb_id),
+                      method: :delete,
+                      class: "climb btn #{pyramid_climb_class(climb)}",
+                      id: "climb-#{row_index}-#{col_index}" do %>
+                  <%= climb.name %>
+                <% end %>
+              <% else %>
+                <%= link_to discipline_sends_path(pyramid.discipline, {send: { decimal: climb.grade.decimal, letter: climb.grade.letter }}),
+                      method: :post,
+                      class: "climb btn #{pyramid_climb_class(climb)}",
+                      id: "climb-#{row_index}-#{col_index}" do %>
+                  <%= climb.name %>
+                <% end %>
               <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
-</div>
+    <% end %>
+  </div>
+<% end %>
