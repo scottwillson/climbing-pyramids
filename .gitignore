@@ -4,6 +4,7 @@
 .byebug_history
 .nvmrc
 .ruby-gemset
+.ruby-version
 .yarn-integrity
 /.bundle
 /config/master.key
