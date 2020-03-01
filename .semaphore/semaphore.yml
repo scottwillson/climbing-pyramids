@@ -1,5 +1,5 @@
 version: v1.0
-name: Test MyApp
+name: Climbing Pyramids
 agent:
   machine:
     type: e1-standard-2
@@ -9,7 +9,7 @@ blocks:
     task:
       env_vars:
         - name: DATABASE_URL
-          value: 'postgresql://postgres:@0.0.0.0:5432/myapp_test'
+          value: 'postgresql://postgres:@0.0.0.0:5432/climbing_pyramids_test'
         - name: RAILS_ENV
           value: test
       jobs:
@@ -19,8 +19,11 @@ blocks:
             - sem-service start postgres 11
             - sem-version ruby 2.7.0
             - cache restore
-            - bundle install --deployment --path vendor/bundle
-            - 'rails webpacker:compile'
+            - bundle config set deployment 'true'
+            - bundle config set path 'vendor/bundle'
+            - gem update bundler
+            - bundle install
+            - rails webpacker:compile
             - cache store
-            - 'bundle exec rake db:setup'
+            - bundle exec rake db:setup
             - bundle exec rails test
