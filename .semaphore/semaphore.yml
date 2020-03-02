@@ -23,6 +23,7 @@ blocks:
             - bundle config set path 'vendor/bundle'
             - gem update bundler
             - bundle install
+            - bundle exec bin/rails webpacker:install
             - bundle exec bin/rails webpacker:compile
             - cache store
             - bundle exec rake db:setup
