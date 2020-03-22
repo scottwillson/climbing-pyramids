@@ -7,7 +7,8 @@ class PyramidTest < ActiveSupport::TestCase
   end
 
   test ".new_from_redpoint" do
-    pyramid = Pyramid.new_from_redpoint("5.11c")
+    tr = Discipline.create!(name: "Indoor Top Rope")
+    pyramid = Pyramid.new_from_redpoint("5.11c", tr)
     assert_equal 4, pyramid.pyramid_grades.size
     assert_equal ["5.12b"], pyramid.pyramid_grades.first.climbs.map(&:name)
     assert_equal ["5.12a", "5.12a"], pyramid.pyramid_grades.second.climbs.map(&:name)
@@ -16,14 +17,16 @@ class PyramidTest < ActiveSupport::TestCase
   end
 
   test ".new_from_climbs no climbs" do
-    pyramid = Pyramid.new_from_climbs
+    tr = Discipline.create!(name: "Indoor Top Rope")
+    pyramid = Pyramid.new_from_climbs(tr)
     assert_equal 4, pyramid.pyramid_grades.size
     assert_equal ["5.9"], pyramid.pyramid_grades.first.climbs.map(&:name)
   end
 
   test ".new_from_climbs" do
-    Climb.create!(grade: "5.10a", discipline: Discipline.create!(name: "TR"))
-    pyramid = Pyramid.new_from_climbs
+    tr = Discipline.create!(name: "Indoor Top Rope")
+    Climb.create!(grade: "5.10a", discipline: tr)
+    pyramid = Pyramid.new_from_climbs(tr)
     assert_equal 4, pyramid.pyramid_grades.size
 
     climb = pyramid.pyramid_grades.first.climbs.first
@@ -47,7 +50,7 @@ class PyramidTest < ActiveSupport::TestCase
     Climb.create!(grade: "5.7", discipline: tr)
     Climb.create!(grade: "5.8", discipline: tr)
     Climb.create!(grade: "5.7", discipline: tr)
-    pyramid = Pyramid.new_from_climbs
+    pyramid = Pyramid.new_from_climbs(tr)
     assert_equal 4, pyramid.pyramid_grades.size
 
     climb = pyramid.pyramid_grades.first.climbs.first

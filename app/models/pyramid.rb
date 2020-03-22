@@ -28,7 +28,7 @@ class Pyramid < ApplicationRecord
   end
 
   def self.new_from_climbs(discipline)
-    redpoint_grade = Climb.where(discipline: discipline).first&.grade || Grade.new_from_string("5.6")
+    redpoint_grade = Climb.find_by(discipline: discipline)&.grade || Grade.new_from_string("5.6")
     new_from_redpoint(redpoint_grade, discipline).mark_sends!(discipline)
   end
 
