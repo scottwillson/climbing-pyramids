@@ -1,4 +1,6 @@
 class SendsController < ApplicationController
+  before_action :authenticate_person!
+
   def create
     grade = Grade.new(decimal: send_params[:decimal], letter: send_params[:letter])
     Climb.create!(grade: grade)

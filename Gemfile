@@ -5,6 +5,7 @@ ruby "2.7.0"
 
 gem "bcrypt", "~> 3.1.7"
 gem "default_value_for"
+gem "devise"
 gem "jbuilder", "~> 2.7"
 gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 4.3.1"
@@ -28,8 +29,8 @@ end
 group :development do
   gem "foreman"
   gem "listen", ">= 3.0.5", "< 3.2"
-  gem "spring-watcher-listen", "~> 2.0.0"
   gem "spring"
+  gem "spring-watcher-listen", "~> 2.0.0"
   gem "web-console", ">= 3.3.0"
 end
 
