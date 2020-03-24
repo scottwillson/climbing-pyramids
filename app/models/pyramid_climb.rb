@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PyramidClimb
   attr_reader :grade
   attr_accessor :climb_id
@@ -10,9 +12,7 @@ class PyramidClimb
     @sent = sent
   end
 
-  def name
-    grade.name
-  end
+  delegate :name, to: :grade
 
   def goal?
     @goal

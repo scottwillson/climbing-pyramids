@@ -33,20 +33,22 @@ class GradeTest < ActiveSupport::TestCase
     assert_not_equal Grade.new(decimal: 4), Grade.new(decimal: 11, letter: "b")
   end
 
+  # rubocop:disable Lint/UselessComparison
   test "#<=>" do
-    assert_equal 0, Grade.new(decimal: 9) <=> Grade.new(decimal: 9)
-    assert_equal -1, Grade.new(decimal: 8) <=> Grade.new(decimal: 9)
-    assert_equal 0, Grade.new(decimal: 10, letter: "b") <=> Grade.new(decimal: 10, letter: "b")
-    assert_equal 1, Grade.new(decimal: 10, letter: "d") <=> Grade.new(decimal: 10, letter: "b")
-    assert_equal -1, Grade.new(decimal: 10, letter: "b") <=> Grade.new(decimal: 11, letter: "b")
-    assert_equal -1, Grade.new(decimal: 4) <=> Grade.new(decimal: 11, letter: "b")
-    assert_nil nil <=> Grade.new(decimal: 9)
-    assert_equal -1, Grade.new(decimal: 9) <=> nil
-    assert_nil 9 <=> Grade.new(decimal: 9)
-    assert_equal -1, Grade.new(decimal: 9) <=> 9
-    assert_equal 1, "9" <=> Grade.new(decimal: 9)
-    assert_equal -1, Grade.new(decimal: 9) <=> "9"
+    assert_equal(0, Grade.new(decimal: 9) <=> Grade.new(decimal: 9))
+    assert_equal(-1, Grade.new(decimal: 8) <=> Grade.new(decimal: 9))
+    assert_equal(0, Grade.new(decimal: 10, letter: "b") <=> Grade.new(decimal: 10, letter: "b"))
+    assert_equal(1, Grade.new(decimal: 10, letter: "d") <=> Grade.new(decimal: 10, letter: "b"))
+    assert_equal(-1, Grade.new(decimal: 10, letter: "b") <=> Grade.new(decimal: 11, letter: "b"))
+    assert_equal(-1, Grade.new(decimal: 4) <=> Grade.new(decimal: 11, letter: "b"))
+    assert_nil(nil <=> Grade.new(decimal: 9))
+    assert_equal(-1, Grade.new(decimal: 9) <=> nil)
+    assert_nil(9 <=> Grade.new(decimal: 9))
+    assert_equal(-1, Grade.new(decimal: 9) <=> 9)
+    assert_equal(1, "9" <=> Grade.new(decimal: 9))
+    assert_equal(-1, Grade.new(decimal: 9) <=> "9")
   end
+  # rubocop:enable Lint/UselessComparison
 
   test "#plus" do
     grade = Grade.new_from_string("5.6").plus(1)

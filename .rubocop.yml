@@ -8,21 +8,12 @@ AllCops:
 
 Rails:
   Enabled: true
-#
-# ClassLength:
-#   Enabled: false
 
-Documentation:
+Style/Documentation:
   Enabled: false
 
-# Layout/SpaceInsidePercentLiteralDelimiters:
-#   Enabled: false
-
-LineLength:
+Layout/LineLength:
   Max: 160
-
-# MethodLength:
-#   Enabled: false
 
 Metrics/AbcSize:
   Max: 40
@@ -41,20 +32,26 @@ Metrics/ModuleLength:
 Naming/VariableNumber:
   Enabled: false
 
-# Rails/FilePath:
-#   Enabled: false
-
-SingleLineBlockParams:
+Style/SingleLineBlockParams:
   Enabled: false
 
-StringLiterals:
+Style/StringLiterals:
   EnforcedStyle: double_quotes
 
 Style/GuardClause:
   Enabled: false
 
-# Style/ClassAndModuleChildren:
-#   EnforcedStyle: compact
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
 
 Style/NumericPredicate:
   Enabled: false
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true

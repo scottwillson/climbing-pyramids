@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SendsController < ApplicationController
   before_action :authenticate_person!
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PyramidGrade
   attr_reader :grade
 
@@ -5,9 +7,7 @@ class PyramidGrade
     @grade = grade
   end
 
-  def name
-    grade.name
-  end
+  delegate :name, to: :grade
 
   def climbs
     @climbs ||= []

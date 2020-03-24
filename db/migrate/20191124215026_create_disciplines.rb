@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateDisciplines < ActiveRecord::Migration[6.0]
   def change
     Climb.delete_all

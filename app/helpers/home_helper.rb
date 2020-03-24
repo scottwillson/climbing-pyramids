@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HomeHelper
   def pyramid_climb_class(climb)
     if climb.sent? && climb.goal?
