@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Pyramid < ApplicationRecord
   belongs_to :discipline
 

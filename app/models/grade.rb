@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # decimal .4, .13
 # letter a-d
 # plus: 5.10a + 2 = 5.12c
@@ -39,7 +41,7 @@ class Grade
   end
 
   def plus(letter_grades)
-    grade = self.dup
+    grade = dup
     letter_grades.times do
       grade = grade.succ
     end
