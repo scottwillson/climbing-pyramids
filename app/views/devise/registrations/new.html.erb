@@ -1,13 +1,24 @@
-<h2>Sign up</h2>
+<div class="row">
+  <div class="col-sm">
+    <div class="card"">
+      <div class="card-body">
+        <h2>Sign up</h2>
 
-<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  <%= f.password_field :password, autocomplete: "new-password" %>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
+        <%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= render "devise/shared/error_messages", resource: resource %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          <%= f.password_field :password, autocomplete: "new-password" %>
+          <%= f.submit "Sign up", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
   </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+  <div class="col-sm">
+    <div class="card"">
+      <div class="card-body">
+        <p>Already signed-up? <%= link_to "Log in", new_person_session_path %></p>
+      </div>
+    </div>
+  </div>
+</div>

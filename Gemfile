@@ -6,6 +6,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.7.0"
 
 gem "bcrypt", "~> 3.1.7"
+gem "bootstrap"
 gem "bootstrap_form"
 gem "default_value_for"
 gem "devise"
