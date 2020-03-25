@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Overpass:400,700,900&display=swap');
 
-$grid-columns:      8;
+$grid-columns:      12;
 
 $orange:       #ff3e00 !default;
 $primary:       $orange !default;
@@ -11,3 +11,13 @@ $font-family-base:       $font-family-sans-serif !default;
 
 @import "bootstrap";
 @import "rails_bootstrap_forms";
+
+.pyramid .btn {
+  font-size: 0.8rem;
+}
+
+@include media-breakpoint-up(sm) {
+  .pyramid .btn {
+    font-size: 1rem;
+  }
+}

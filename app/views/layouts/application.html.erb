@@ -12,18 +12,22 @@
 
   <body>
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-      <h5 class="my-0 mr-md-auto font-weight-normal">Climbing Pyramids</h5>
+      <h5 class="my-0 mr-md-auto">Climbing Pyramids</h5>
     </div>
 
     <div class="container">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <% if notice.present? %>
+        <p class="notice"><%= notice %></p>
+      <% end %>
+      <% if alert.present? %>
+        <p class="alert"><%= alert %></p>
+      <% end %>
 
       <%= yield %>
     </div>
 
     <% if signed_in? %>
-      <nav class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-top shadow-sm">
+      <nav class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-top shadow-sm mt-4">
         <%= link_to "Sign out", destroy_person_session_path, method: :delete, class: "btn btn-outline-primary" %>
       </nav>
     <% end %>
