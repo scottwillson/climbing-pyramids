@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Climb < ApplicationRecord
-  belongs_to :discipline
+  belongs_to :discipline, inverse_of: :climbs
 
   validates :discipline, presence: true
 

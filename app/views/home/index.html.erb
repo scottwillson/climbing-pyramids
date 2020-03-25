@@ -1,5 +1,11 @@
+<%= bootstrap_form_for(Climb.new) do |f| %>
+  <%= f.collection_select :discipline, @disciplines_without_climbs.sort_by(&:name), "id", "name", label: "Create Pyramid", include_blank: true %>
+  <%= f.submit "Create" %>
+<% end %>
+
 <% @pyramids.each do |pyramid| %>
   <h3><%= pyramid.discipline.name %></h3>
+
   <div class="pyramid">
     <% pyramid.pyramid_grades.each.with_index do |pyramid_grade, row_index| %>
       <div class="pyramid_grade row">

@@ -9,8 +9,8 @@ class Pyramid < ApplicationRecord
     Discipline.find_or_create_by(name: "Outdoor Lead")
   end
 
-  def self.all_for_disciplines
-    Discipline.all.map do |discipline|
+  def self.all_with_climbs(disciplines)
+    disciplines.map do |discipline|
       new_from_climbs(discipline)
     end
   end

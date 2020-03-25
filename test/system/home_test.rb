@@ -3,14 +3,18 @@
 require "application_system_test_case"
 
 class HomeTest < ApplicationSystemTestCase
+  driven_by :selenium, using: :headless_chrome, screen_size: [375, 812] do |driver_option|
+    driver_option.add_emulation(device_name: "iPhone X")
+  end
+
   test "index" do
     visit "/"
-    assert_selector "create-account"
+    assert_selector "form.new_person"
 
-    assert_selector "#climb-3-0", text: "5.6"
-    click_on "climb-3-0"
-    assert_selector "#climb-3-0.sent", text: "5.6"
-    click_on "climb-3-0"
-    assert_no_selector "#climb-3-0.sent", text: "5.6"
+    fill_in "Email", with: "climber@example.com"
+    fill_in "Password", with: "secret123"
+    click_on "Sign up"
+
+    assert_selector "#climb_discipline"
   end
 end
