@@ -13,6 +13,10 @@ class Grade
   attr_reader :decimal
   attr_reader :letter
 
+  def self.all
+    Grade.new(decimal: "4")..Grade.new(decimal: "15", letter: "d")
+  end
+
   def self.decimal_from_string(string)
     matches = string.match(/5\.(\d{1,2})([a-d]{0,1})/)
     matches[1].to_i
