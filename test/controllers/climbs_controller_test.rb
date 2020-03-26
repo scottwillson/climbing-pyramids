@@ -2,14 +2,14 @@
 
 require "test_helper"
 
-class SendsControllerTest < ActionDispatch::IntegrationTest
+class ClimbsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   test "create" do
     sign_in Person.create!(email: "person@example.com", password: "secret")
     discipline = Discipline.create!(name: "TR")
 
-    post discipline_sends_path(discipline, params: { send: { decimal: "7", letter: "" } })
+    post climbs_path(params: { climb: { discipline_id: discipline, grade: "5.7" } })
 
     assert_redirected_to root_path
     assert_equal 1, Climb.count
@@ -20,8 +20,9 @@ class SendsControllerTest < ActionDispatch::IntegrationTest
 
   test "create 5.11c" do
     sign_in Person.create!(email: "person@example.com", password: "secret")
+    discipline = Discipline.create!(name: "TR")
 
-    post sends_path(params: { send: { decimal: "11", letter: "c" } })
+    post climbs_path(discipline, params: { climb: { discipline_id: discipline, grade: "5.11c" } })
 
     assert_redirected_to root_path
     assert_equal 1, Climb.count
@@ -32,9 +33,10 @@ class SendsControllerTest < ActionDispatch::IntegrationTest
 
   test "destroy" do
     sign_in Person.create!(email: "person@example.com", password: "secret")
-    climb = Climb.create!(grade_decimal: 6, discipline: Discipline.create!(name: "TR"))
+    discipline = Discipline.create!(name: "TR")
+    climb = Climb.create!(grade_decimal: 6, discipline: discipline)
 
-    delete send_path(climb.id)
+    delete climb_path(climb.id)
 
     assert_redirected_to root_path
     assert_equal 0, Climb.count

@@ -15,6 +15,13 @@ class HomeTest < ApplicationSystemTestCase
     fill_in "Password", with: "secret123"
     click_on "Sign up"
 
-    assert_selector "#climb_discipline"
+    select "Outdoor Lead"
+    select "5.10d"
+    click_on "Create"
+
+    discipline = Discipline.find_by(name: "Outdoor Lead")
+    assert_selector("h3", text: "Outdoor Lead")
+    assert_selector "#climb-#{discipline.id}-0-0", text: "5.11c"
+    assert_selector "#climb-#{discipline.id}-3-0.sent", text: "5.10d"
   end
 end

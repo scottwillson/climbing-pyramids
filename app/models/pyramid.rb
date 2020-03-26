@@ -31,14 +31,14 @@ class Pyramid < ApplicationRecord
 
   def self.new_from_climbs(discipline)
     redpoint_grade = Climb.find_by(discipline: discipline)&.grade || Grade.new_from_string("5.6")
-    new_from_redpoint(redpoint_grade, discipline).mark_sends!(discipline)
+    new_from_redpoint(redpoint_grade, discipline).mark_climbs!(discipline)
   end
 
   def pyramid_grades
     @pyramid_grades ||= []
   end
 
-  def mark_sends!(discipline)
+  def mark_climbs!(discipline)
     # Not efficient with large number of climbs. Could be constrained.
     Climb.where(discipline: discipline).order(:created_at).each do |climb|
       sent_grade = climb.grade
