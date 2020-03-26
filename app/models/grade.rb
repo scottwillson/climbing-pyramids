@@ -72,6 +72,10 @@ class Grade
     end
   end
 
+  def to_param
+    name
+  end
+
   def to_s
     "#<Grade 5.#{decimal}#{letter}>"
   end
