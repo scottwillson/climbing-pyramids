@@ -15,6 +15,10 @@ class ClimbsController < ApplicationController
     redirect_to root_path
   end
 
+  def index
+    @climbs = Climb.all
+  end
+
   private
 
   def climb_params

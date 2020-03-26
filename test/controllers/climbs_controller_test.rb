@@ -41,4 +41,10 @@ class ClimbsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     assert_equal 0, Climb.count
   end
+
+  test "index" do
+    sign_in Person.create!(email: "person@example.com", password: "secret")
+    Discipline.create!(name: "TR")
+    get climbs_path
+  end
 end
