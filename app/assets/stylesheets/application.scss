@@ -8,6 +8,7 @@ $primary:       $orange !default;
 $font-family-sans-serif: Overpass, sans-serif !default;
 $font-family-monospace:  'Fira Mono', monospace !default;
 $font-family-base:       $font-family-sans-serif !default;
+$enable-responsive-font-sizes: true;
 
 @import "bootstrap";
 @import "rails_bootstrap_forms";

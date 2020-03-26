@@ -27,7 +27,7 @@
     </div>
 
     <% if signed_in? %>
-      <nav class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-top shadow-sm mt-4">
+      <nav class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom border-top mt-4">
         <%= link_to "Sign out", destroy_person_session_path, method: :delete, class: "btn btn-outline-primary" %>
       </nav>
     <% end %>

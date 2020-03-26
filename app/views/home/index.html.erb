@@ -1,5 +1,5 @@
 <% @pyramids.each do |pyramid| %>
-  <h3 class="mt-3"><%= pyramid.discipline.name %></h3>
+  <h3 class="pyramid_discipline mt-3"><%= pyramid.discipline.name %></h3>
 
   <div class="pyramid">
     <% pyramid.pyramid_grades.each.with_index do |pyramid_grade, row_index| %>
