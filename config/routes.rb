@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :climbs
+  resources :people
 end
