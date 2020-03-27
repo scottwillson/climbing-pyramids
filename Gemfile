@@ -8,7 +8,6 @@ ruby "2.7.0"
 gem "bcrypt", "~> 3.1.7"
 gem "bootstrap"
 gem "bootstrap_form"
-gem "default_value_for"
 gem "devise"
 gem "jbuilder", "~> 2.7"
 gem "pg", ">= 0.18", "< 2.0"
@@ -42,4 +41,5 @@ group :test do
   gem "capybara", ">= 2.15"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "webmock"
 end

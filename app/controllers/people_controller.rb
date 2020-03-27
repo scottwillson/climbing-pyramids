@@ -10,6 +10,6 @@ class PeopleController < ApplicationController
   private
 
   def person_params
-    params.require(:person).permit(:email)
+    params.require(:person).permit(:email, :mountain_project_user_id, :password)
   end
 end

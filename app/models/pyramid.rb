@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 class Pyramid < ApplicationRecord
+  attribute :discipline_id, :integer, default: -> { Discipline.find_or_create_by(name: "Outdoor Lead").id }
+
   belongs_to :discipline
 
   validates :discipline, presence: true
-
-  default_value_for :discipline do
-    Discipline.find_or_create_by(name: "Outdoor Lead")
-  end
 
   def self.all_with_climbs(disciplines)
     disciplines.map do |discipline|

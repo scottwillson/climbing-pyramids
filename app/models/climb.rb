@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 class Climb < ApplicationRecord
+  attribute :climbed_on, :date, default: -> { Time.zone.today }
+  attribute :discipline_id, :integer, default: -> { Discipline.find_or_create_by(name: "Outdoor Lead").id }
+
   belongs_to :discipline, inverse_of: :climbs
 
   validates :discipline, presence: true
-
-  default_value_for :discipline do
-    Discipline.find_or_create_by(name: "Outdoor Lead")
-  end
 
   def grade
     @grade ||= Grade.new(decimal: grade_decimal, letter: grade_letter)

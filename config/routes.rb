@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   root "home#index"
 
   resources :climbs
+  resources :mountain_project_climbs
   resources :people
 end
