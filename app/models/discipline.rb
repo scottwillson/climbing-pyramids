@@ -7,13 +7,13 @@ class Discipline < ApplicationRecord
 
   def self.seed!
     [
-      "Indoor Top Rope",
-      "Indoor Lead",
-      "Outdoor Top Rope",
-      "Outdoor Lead",
-      "Outdoor Trad",
       "Indoor Boulder",
-      "Outdoor Boulder"
+      "Indoor Lead",
+      "Indoor Top Rope",
+      "Outdoor Boulder",
+      "Outdoor Lead",
+      "Outdoor Top Rope",
+      "Trad"
     ].each do |name|
       Discipline.create! name: name
     end

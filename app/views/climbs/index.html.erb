@@ -4,13 +4,14 @@
       <th scope="col">Date</th>
       <th scope="col">Grade</th>
       <th scope="col">Discipline</th>
+      <th scope="col">Route</th>
     </tr>
   </thead>
   <tbody>
-    <%= render @climbs %>
+    <%= render @climbs.sort_by(&:climbed_on).reverse %>
     <% if @climbs.empty? %>
       <tr>
-        <td colspan="3"><em>None</em></td>
+        <td colspan="4"><em>None</em></td>
       </tr>
     <% end %>
   </tbody>

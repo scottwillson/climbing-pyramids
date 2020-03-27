@@ -25,7 +25,9 @@ class CreateMountainProjectClimbs
 
     ticks.each do |tick|
       route = routes.detect { |r| r["id"] == tick["routeId"] }
+      tick["name"] = route["name"]
       tick["rating"] = route["rating"]
+      tick["routeId"] = route["id"]
       tick["type"] = route["type"]
     end
   end
@@ -37,7 +39,10 @@ class CreateMountainProjectClimbs
       Climb.create!(
         climbed_on: tick["date"],
         discipline: discipline(tick),
-        grade: tick["rating"]
+        grade: tick["rating"],
+        mountain_project_route_id: tick["routeId"],
+        mountain_project_tick_id: tick["tickId"],
+        name: tick["name"]
       )
     end
   end
@@ -55,7 +60,7 @@ class CreateMountainProjectClimbs
 
   def discipline_map
     @discipline_map ||= {
-      "Lead-Trad": Discipline.find_by!(name: "Outdoor Trad"),
+      "Lead-Trad": Discipline.find_by!(name: "Trad"),
       "TR-Trad": Discipline.find_by!(name: "Outdoor Top Rope"),
       "TR-Trad, TR": Discipline.find_by!(name: "Outdoor Top Rope"),
       "TR-Sport": Discipline.find_by!(name: "Outdoor Top Rope"),

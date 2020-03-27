@@ -1,5 +1,12 @@
 <tr>
-  <td><%= climb.created_at.to_date.to_s(:long) %></td>
+  <td><%= climb.climbed_on.to_s(:long) %></td>
   <td><%= climb.grade.name %></td>
   <td><%= climb.discipline.name %></td>
+  <td>
+    <% if climb.mountain_project_route_id.present? %>
+      <%= link_to climb.name, "https://www.mountainproject.com/route/#{climb.mountain_project_route_id}" %>
+    <% else %>
+      <%= climb.name %>
+    <% end %>
+  </td>
 </tr>

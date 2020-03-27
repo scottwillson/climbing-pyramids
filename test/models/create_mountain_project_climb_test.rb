@@ -11,5 +11,11 @@ class MountainProjectClimbTest < ActiveSupport::TestCase
     CreateMountainProjectClimbs.new(person).call!
 
     assert_equal 119, Climb.count
+    climb = Climb.find_by(mountain_project_tick_id: 118051965)
+    assert_equal "2019-11-16", climb.climbed_on.to_s
+    assert_equal "Trad", climb.discipline.name
+    assert_equal "5.8", climb.grade.name
+    assert_equal "108237549", climb.mountain_project_route_id
+    assert_equal "Crimson Tide", climb.name
   end
 end
