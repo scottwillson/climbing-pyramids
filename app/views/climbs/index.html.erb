@@ -8,6 +8,11 @@
   </thead>
   <tbody>
     <%= render @climbs %>
+    <% if @climbs.empty? %>
+      <tr>
+        <td colspan="3"><em>None</em></td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
 

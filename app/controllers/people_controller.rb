@@ -7,6 +7,16 @@ class PeopleController < ApplicationController
     @person = current_person
   end
 
+  def update
+    @person = Person.find(params[:id])
+    if @person.update(person_params)
+      return redirect_to(edit_person_path(@person))
+    end
+
+    flash.now[:alert] = @person.errors.full_messages
+    render :edit
+  end
+
   private
 
   def person_params
