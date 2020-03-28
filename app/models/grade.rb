@@ -80,6 +80,14 @@ class Grade
     "#<Grade 5.#{decimal}#{letter}>"
   end
 
+  def hash
+    name.hash
+  end
+
+  def eql?(other)
+    self == other
+  end
+
   def ==(other)
     other.is_a?(Grade) && other.decimal == decimal && other.letter == letter
   end
