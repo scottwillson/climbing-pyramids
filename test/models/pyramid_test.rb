@@ -60,6 +60,11 @@ class PyramidTest < ActiveSupport::TestCase
     assert_not climb.sent?
     assert climb.goal?
 
+    climb = pyramid.pyramid_grades.second.climbs.first
+    assert_equal "5.9", climb.name
+    assert_not climb.sent?
+    assert climb.goal?
+
     climb = pyramid.pyramid_grades.third.climbs.first
     assert_equal "5.8", climb.name
     assert climb.sent?
@@ -84,5 +89,52 @@ class PyramidTest < ActiveSupport::TestCase
     assert_equal "5.7", climb.name
     assert_not climb.sent?
     assert climb.goal?
+  end
+
+  # ["5.4", "5.5", "5.6", "5.7", "5.8", "5.9", "5.10a", "5.10b"]
+  # [1, 4, 14, 20, 16, 8, 6, 2]
+  test ".new_from_climbs more than 8 climbs per grade" do
+    1.times { Climb.create!(grade: "5.4") }
+    4.times { Climb.create!(grade: "5.5") }
+    14.times { Climb.create!(grade: "5.6") }
+    20.times { Climb.create!(grade: "5.7") }
+    16.times { Climb.create!(grade: "5.8") }
+    8.times { Climb.create!(grade: "5.9") }
+    6.times { Climb.create!(grade: "5.10a") }
+    2.times { Climb.create!(grade: "5.10b") }
+
+    pyramid = Pyramid.new_from_climbs(Discipline.first)
+
+    assert_equal 1, pyramid.pyramid_grades.first.climbs.size
+    climb = pyramid.pyramid_grades.first.climbs.first
+    assert_equal "5.10d", climb.name
+    assert_not climb.sent?
+
+    assert_equal 2, pyramid.pyramid_grades.second.climbs.size
+    climb = pyramid.pyramid_grades.second.climbs.first
+    assert_equal "5.10c", climb.name
+    assert_not climb.sent?
+
+    climb = pyramid.pyramid_grades.second.climbs.second
+    assert_equal "5.10c", climb.name
+    assert_not climb.sent?
+
+    assert_equal 4, pyramid.pyramid_grades.third.climbs.size
+    climb = pyramid.pyramid_grades.third.climbs[1]
+    assert_equal "5.10b", climb.name
+    assert climb.sent?
+
+    climb = pyramid.pyramid_grades.third.climbs[2]
+    assert_equal "5.10b", climb.name
+    assert_not climb.sent?
+
+    assert_equal 8, pyramid.pyramid_grades.fourth.climbs.size
+    climb = pyramid.pyramid_grades.fourth.climbs[5]
+    assert_equal "5.10a", climb.name
+    assert climb.sent?
+
+    climb = pyramid.pyramid_grades.fourth.climbs[6]
+    assert_equal "5.10a", climb.name
+    assert_not climb.sent?
   end
 end

@@ -28,8 +28,22 @@ class Pyramid < ApplicationRecord
   end
 
   def self.new_from_climbs(discipline)
-    redpoint_grade = Climb.where(discipline: discipline).order("grade_decimal, grade_letter").first&.grade || Grade.new_from_string("5.6")
-    new_from_redpoint(redpoint_grade, discipline).mark_climbs!(discipline)
+    climbs = Climb.where(discipline: discipline).group_by(&:grade)
+
+    complete_grades = Grade.all.select do |grade|
+      climbs[grade].present? && climbs[grade].size >= 8
+    end
+
+    pyramid = nil
+    if complete_grades.any?
+      max_complete_grade = complete_grades.max
+      pyramid = new_from_redpoint(max_complete_grade.succ, discipline)
+    else
+      min_climbed_grade = climbs.keys.min || Grade.new(decimal: "6")
+      pyramid = new_from_redpoint(min_climbed_grade, discipline)
+    end
+
+    pyramid.mark_climbs! discipline
   end
 
   def pyramid_grades
