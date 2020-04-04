@@ -16,7 +16,7 @@ class ClimbsController < ApplicationController
   end
 
   def index
-    @climbs = Climb.all
+    @climbs = Climb.includes(:discipline).all
   end
 
   private

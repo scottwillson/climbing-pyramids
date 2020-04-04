@@ -5,6 +5,7 @@ class CreateMountainProjectClimbs
 
   def call!
     raise(ArgumentError, "Mountain Project user ID required") if @person.mountain_project_user_id.blank?
+    raise(ArgumentError, "MOUNTAIN_PROJECT_KEY required") if key.blank?
 
     uri = URI("https://www.mountainproject.com/data/get-ticks?userId=#{@person.mountain_project_user_id}&key=#{key}")
     response = Net::HTTP.get(uri)
@@ -40,6 +41,13 @@ class CreateMountainProjectClimbs
         climbed_on: tick["date"],
         discipline: discipline(tick),
         grade: tick["rating"],
+        mountain_project_pitches: tick["pitches"],
+        mountain_project_user_stars: tick["userStars"],
+        mountain_project_lead_style: tick["leadStyle"],
+        mountain_project_notes: tick["notes"],
+        mountain_project_style: tick["style"],
+        mountain_project_type: tick["type"],
+        mountain_project_user_rating: tick["userRating"],
         mountain_project_route_id: tick["routeId"],
         mountain_project_tick_id: tick["tickId"],
         name: tick["name"]

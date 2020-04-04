@@ -10,6 +10,7 @@
               <% if climb.sent? %>
                 <%= link_to climb_path(climb.climb_id),
                       method: :delete,
+                      title: climb.climb_name,
                       class: "climb btn #{pyramid_climb_class(climb)} climb-#{row_index}-#{col_index}",
                       id: "climb-#{pyramid.discipline.id}-#{row_index}-#{col_index}" do %>
                   <%= climb.name %>

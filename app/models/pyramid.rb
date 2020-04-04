@@ -61,7 +61,7 @@ class Pyramid < ApplicationRecord
       next unless pyramid_climb
 
       pyramid_climb.sent = true
-      pyramid_climb.climb_id = climb.id
+      pyramid_climb.climb = climb
     end
     self
   end

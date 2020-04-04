@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_234314) do
+ActiveRecord::Schema.define(version: 2020_04_04_150509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 2020_03_27_234314) do
     t.date "climbed_on", null: false
     t.string "mountain_project_route_id"
     t.string "name"
+    t.integer "mountain_project_pitches"
+    t.integer "mountain_project_user_stars"
+    t.string "mountain_project_lead_style"
+    t.string "mountain_project_notes"
+    t.string "mountain_project_style"
+    t.string "mountain_project_type"
+    t.string "mountain_project_user_rating"
     t.index ["discipline_id"], name: "index_climbs_on_discipline_id"
   end
 

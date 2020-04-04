@@ -2,7 +2,7 @@
 
 class PyramidClimb
   attr_reader :grade
-  attr_accessor :climb_id
+  attr_accessor :climb
   attr_accessor :goal
   attr_accessor :sent
 
@@ -13,6 +13,14 @@ class PyramidClimb
   end
 
   delegate :name, to: :grade
+
+  def climb_id
+    climb&.id
+  end
+
+  def climb_name
+    climb&.name
+  end
 
   def goal?
     @goal
