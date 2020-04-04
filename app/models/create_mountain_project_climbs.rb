@@ -5,7 +5,7 @@ class CreateMountainProjectClimbs
 
   def call!
     raise(ArgumentError, "Mountain Project user ID required") if @person.mountain_project_user_id.blank?
-    raise(ArgumentError, "MOUNTAIN_PROJECT_KEY required") if key.blank?
+    raise(ArgumentError, "MOUNTAIN_PROJECT_KEY required") if key.blank? && !Rails.env.test?
 
     uri = URI("https://www.mountainproject.com/data/get-ticks?userId=#{@person.mountain_project_user_id}&key=#{key}")
     response = Net::HTTP.get(uri)
@@ -16,6 +16,7 @@ class CreateMountainProjectClimbs
     response = Net::HTTP.get(uri)
 
     ticks = add_routes(ticks, JSON.parse(response))
+    ticks = remove_duplicates(ticks)
     create_climbs ticks
   end
 
@@ -93,6 +94,22 @@ class CreateMountainProjectClimbs
         tick["style"][/Follow/] ||
         Climb.where(mountain_project_tick_id: tick["tickId"]).exists?
     end
+  end
+
+  def remove_duplicates(ticks)
+    keys = Set.new
+
+    unique_ticks = []
+    ticks.sort_by { |tick| tick["date"] }.each do |tick|
+      key = [tick["routeId"], tick["leadStyle"], tick["style"]]
+      next if keys.include?(key)
+
+      keys << key
+      unique_ticks << tick
+    end
+
+
+    unique_ticks
   end
 
   def route_ids(json)
