@@ -30,8 +30,15 @@ class Pyramid < ApplicationRecord
   def self.new_from_climbs(discipline)
     climbs = Climb.where(discipline: discipline).group_by(&:grade)
 
-    complete_grades = Grade.all.select do |grade|
-      climbs[grade].present? && climbs[grade].size >= 8
+    complete_grades = []
+    Grade.all.each_cons(4) do |grades|
+      if climbs[grades[0]].present? && climbs[grades[0]].size >= 8 &&
+        climbs[grades[1]].present? && climbs[grades[1]].size >= 4 &&
+        climbs[grades[2]].present? && climbs[grades[2]].size >= 2 &&
+        climbs[grades[3]].present? && climbs[grades[3]].size >= 1
+
+        complete_grades << grades[0]
+      end
     end
 
     pyramid = nil
