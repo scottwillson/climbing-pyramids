@@ -8,19 +8,10 @@
         <th scope="col">Grade</th>
         <th scope="col">Discipline</th>
         <th scope="col">Route</th>
-        <th scope="col">Type</th>
-        <th scope="col">Lead Style</th>
-        <th scope="col">Style</th>
-        <th scope="col">Notes</th>
       </tr>
     </thead>
     <tbody>
       <%= render @climbs.sort_by(&:climbed_on).reverse %>
-      <% if @climbs.empty? %>
-        <tr>
-          <td colspan="4"><em>None</em></td>
-        </tr>
-      <% end %>
     </tbody>
   </table>
 <% end %>
