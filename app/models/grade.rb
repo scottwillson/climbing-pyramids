@@ -22,6 +22,10 @@ class Grade
     matches[1].to_i
   end
 
+  def self.first
+    all.first
+  end
+
   def self.letter_from_string(string)
     matches = string.match(/5\.(\d{1,2})([a-d]{0,1})/)
     matches[2] || ""

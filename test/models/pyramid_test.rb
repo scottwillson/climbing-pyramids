@@ -134,4 +134,17 @@ class PyramidTest < ActiveSupport::TestCase
     assert_equal "5.8", climb.name
     assert climb.sent?
   end
+
+test ".new_from_climbs climbs + redpoint" do
+    2.times { Climb.create!(grade: "5.4") }
+    1.times { Climb.create!(grade: "5.5") }
+    6.times { Climb.create!(grade: "5.6") }
+    6.times { Climb.create!(grade: "5.7") }
+    3.times { Climb.create!(grade: "5.8") }
+
+    pyramid = Pyramid.new_from_climbs(Discipline.first, redpoint_grade: "5.7")
+    climb = pyramid.pyramid_grades.first.climbs.first
+    assert_equal "5.10a", climb.name
+    assert_not climb.sent?
+  end
 end

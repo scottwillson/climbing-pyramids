@@ -27,8 +27,13 @@ class Pyramid < ApplicationRecord
     pyramid
   end
 
-  def self.new_from_climbs(discipline)
-    climbs = Climb.where(discipline: discipline).group_by(&:grade)
+  def self.new_from_climbs(discipline, redpoint_grade: Grade.first)
+    redpoint_grade = Grade.new_from_string(redpoint_grade)
+
+    climbs = Climb
+             .where(discipline: discipline)
+             .reject { |climb| climb.grade < redpoint_grade }
+             .group_by(&:grade)
 
     complete_grades = []
     Grade.all.each_cons(4) do |grades|
