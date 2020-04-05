@@ -11,3 +11,5 @@
 * sort climbs
 * filter climbs
 * if no MP ID, show "set MP ID" or text field instead of import button
+* create pyramid from homepage gives error if no redpoint grade
+* pyramid disappears if in DB but no climbs

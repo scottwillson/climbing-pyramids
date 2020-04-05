@@ -47,4 +47,18 @@ class ClimbsControllerTest < ActionDispatch::IntegrationTest
     Discipline.create!(name: "TR")
     get climbs_path
   end
+
+  test "edit" do
+    sign_in Person.create!(email: "person@example.com", password: "secret")
+    climb = Climb.create!
+    get edit_climb_path(climb)
+  end
+
+  test "update" do
+    person = Person.create!(email: "person@example.com", password: "secret")
+    sign_in person
+
+    climb = Climb.create!
+    patch climb_path(pyramid, climb: { id: climb.id, climb: { name: "Five Gallon Buckets" } })
+  end
 end
