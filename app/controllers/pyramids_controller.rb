@@ -5,10 +5,13 @@ class PyramidsController < ApplicationController
 
   def edit
     @pyramid = Pyramid.find(params[:id])
+    raise("Not your pyramid") unless @pyramid.person == current_person
   end
 
   def update
     @pyramid = Pyramid.find(params[:id])
+    raise("Not your pyramid") unless @pyramid.person == current_person
+
     if @pyramid.update(pyramid_params)
       return redirect_to(edit_pyramid_path(@pyramid))
     end

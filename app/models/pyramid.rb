@@ -6,11 +6,11 @@ class Pyramid < ApplicationRecord
   delegate :name, to: :discipline
 
   belongs_to :discipline
-  has_many :climbs, through: :discipline
-
-  scope :with_climbs, -> { joins(:climbs).uniq }
+  has_many :climbs, ->(person) { where(person: person) }, through: :discipline
+  belongs_to :person, inverse_of: :pyramids
 
   validates :discipline, presence: true
+  validates :person, presence: true
 
   def climbs_above_redpoint
     return climbs unless redpoint_grade

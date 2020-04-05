@@ -5,28 +5,33 @@ class ClimbsController < ApplicationController
 
   def create
     discipline = Discipline.find(climb_params[:discipline_id])
-    discipline.climbs.create!(grade: climb_params[:grade])
-    Pyramid.find_or_create_by!(discipline: discipline)
+    discipline.climbs.create!(grade: climb_params[:grade], person: current_person)
+    Pyramid.find_or_create_by!(discipline: discipline, person: current_person)
     redirect_to root_path
   end
 
   def destroy
     climb = Climb.find(params[:id])
+    raise("Not your climb") unless climb.person == current_person
+
     climb.destroy!
     redirect_to root_path
   end
 
   def edit
     @climb = Climb.find(params[:id])
+    raise("Not your climb") unless climb.person == current_person
   end
 
   def index
     Discipline.seed! unless Discipline.any?
-    @climbs = Climb.includes(:discipline).all
+    @climbs = Climb.includes(:discipline).where(person: current_person).all
   end
 
   def update
     @climb = Climb.find(params[:id])
+    raise("Not your climb") unless climb.person == current_person
+
     if @climb.update(climb_params)
       return redirect_to(edit_climb_path(@climb))
     end

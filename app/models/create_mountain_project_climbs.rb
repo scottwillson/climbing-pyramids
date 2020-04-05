@@ -40,7 +40,7 @@ class CreateMountainProjectClimbs
     create_pyramids(ticks)
 
     ticks.each do |tick|
-      Climb.create!(
+      @person.climbs.create!(
         climbed_on: tick["date"],
         discipline: discipline(tick),
         grade: tick["rating"],
@@ -63,7 +63,7 @@ class CreateMountainProjectClimbs
       .map { |tick| discipline(tick) }
       .uniq
       .each do |discipline|
-        Pyramid.find_or_create_by!(discipline: discipline)
+        @person.pyramids.find_or_create_by!(discipline: discipline)
       end
   end
 
@@ -103,7 +103,7 @@ class CreateMountainProjectClimbs
     json["ticks"].reject do |tick|
       tick["leadStyle"][/Fell/] ||
         tick["style"][/Follow/] ||
-        Climb.where(mountain_project_tick_id: tick["tickId"]).exists?
+        @person.climbs.where(mountain_project_tick_id: tick["tickId"]).exists?
     end
   end
 

@@ -5,4 +5,7 @@ class Person < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates :email, presence: true, uniqueness: true
+
+  has_many :climbs, inverse_of: :person, dependent: :destroy
+  has_many :pyramids, inverse_of: :person, dependent: :destroy
 end

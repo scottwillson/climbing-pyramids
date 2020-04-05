@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_05_151608) do
+ActiveRecord::Schema.define(version: 2020_04_05_194839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,7 +32,9 @@ ActiveRecord::Schema.define(version: 2020_04_05_151608) do
     t.string "mountain_project_style"
     t.string "mountain_project_type"
     t.string "mountain_project_user_rating"
+    t.bigint "person_id"
     t.index ["discipline_id"], name: "index_climbs_on_discipline_id"
+    t.index ["person_id"], name: "index_climbs_on_person_id"
   end
 
   create_table "disciplines", force: :cascade do |t|
@@ -70,7 +72,9 @@ ActiveRecord::Schema.define(version: 2020_04_05_151608) do
     t.bigint "discipline_id"
     t.decimal "redpoint_grade_decimal"
     t.string "redpoint_grade_letter"
+    t.bigint "person_id"
     t.index ["discipline_id"], name: "index_pyramids_on_discipline_id"
+    t.index ["person_id"], name: "index_pyramids_on_person_id"
   end
 
 end

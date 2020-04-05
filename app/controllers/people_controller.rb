@@ -9,6 +9,8 @@ class PeopleController < ApplicationController
 
   def update
     @person = Person.find(params[:id])
+    raise("Not your account") unless @person == current_person
+
     if @person.update(person_params)
       return redirect_to(edit_person_path(@person))
     end
