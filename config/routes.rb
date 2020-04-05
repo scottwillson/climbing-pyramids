@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   resources :climbs
   resources :mountain_project_climbs
   resources :people
+  resources :pyramids
 end

@@ -1,0 +1,5 @@
+<h2><%= @pyramid.discipline.name %></h2>
+<%= bootstrap_form_for(@pyramid) do |f| %>
+  <%= f.collection_select :redpoint_grade, Grade.all, "name", "name", label: "Redpoint Grade", include_blank: true, selected: @pyramid.redpoint_grade&.name %>
+  <%= f.submit "Save" %>
+<% end %>

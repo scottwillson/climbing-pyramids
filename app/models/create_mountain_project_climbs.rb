@@ -37,6 +37,8 @@ class CreateMountainProjectClimbs
   def create_climbs(ticks)
     ticks = ticks.reject { |tick| tick["rating"]["V"] }
 
+    create_pyramids(ticks)
+
     ticks.each do |tick|
       Climb.create!(
         climbed_on: tick["date"],
@@ -54,6 +56,15 @@ class CreateMountainProjectClimbs
         name: tick["name"]
       )
     end
+  end
+
+  def create_pyramids(ticks)
+    ticks
+      .map { |tick| discipline(tick) }
+      .uniq
+      .each do |discipline|
+        Pyramid.find_or_create_by!(discipline: discipline)
+      end
   end
 
   def discipline(tick)

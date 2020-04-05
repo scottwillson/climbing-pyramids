@@ -6,6 +6,7 @@ class ClimbsController < ApplicationController
   def create
     discipline = Discipline.find(climb_params[:discipline_id])
     discipline.climbs.create!(grade: climb_params[:grade])
+    Pyramid.find_or_create_by!(discipline: discipline)
     redirect_to root_path
   end
 
@@ -16,6 +17,7 @@ class ClimbsController < ApplicationController
   end
 
   def index
+    Discipline.seed! unless Discipline.any?
     @climbs = Climb.includes(:discipline).all
   end
 
