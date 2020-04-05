@@ -3,6 +3,8 @@
 class Pyramid < ApplicationRecord
   attribute :discipline_id, :integer, default: -> { Discipline.find_or_create_by(name: "Outdoor Lead").id }
 
+  delegate :name, to: :discipline
+
   belongs_to :discipline
   has_many :climbs, through: :discipline
 

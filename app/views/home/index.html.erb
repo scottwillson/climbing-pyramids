@@ -1,4 +1,4 @@
-<% @pyramids.each do |pyramid| %>
+<% @pyramids.sort_by(&:name).each do |pyramid| %>
   <h3 class="pyramid_discipline mt-3"><%= pyramid.discipline.name %></h3>
 
   <div class="pyramid">
