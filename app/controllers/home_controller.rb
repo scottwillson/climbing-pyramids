@@ -8,6 +8,6 @@ class HomeController < ApplicationController
 
     @disciplines_with_climbs = Discipline.with_climbs
     @disciplines_without_climbs = Discipline.without_climbs
-    @pyramids = Pyramid.with_climbs.each(&:create_grades).each(&:mark_climbs)
+    @pyramids = Pyramid.with_climbs.each(&:create_grades).each(&:mark_sends)
   end
 end

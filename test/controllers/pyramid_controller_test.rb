@@ -16,6 +16,6 @@ class PyramidControllerTest < ActionDispatch::IntegrationTest
     sign_in person
 
     pyramid = Pyramid.create!
-    patch pyramid_path(pyramid, params: { redpoint_grade: "5.12c" })
+    patch pyramid_path(pyramid, params: { id: pyramid.id, pyramid: { redpoint_grade: "5.12c" } })
   end
 end

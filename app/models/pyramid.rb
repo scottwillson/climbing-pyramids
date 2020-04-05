@@ -40,7 +40,7 @@ class Pyramid < ApplicationRecord
       max_complete_grade = complete_grades.max
       grade_begin = max_complete_grade.succ
     else
-      min_climbed_grade = climbs_by_grade.keys.min || Grade.new(decimal: "6")
+      min_climbed_grade = climbs_by_grade.keys.min || redpoint_grade || Grade.new(decimal: "6")
       grade_begin = min_climbed_grade
     end
 
@@ -55,7 +55,7 @@ class Pyramid < ApplicationRecord
     self
   end
 
-  def mark_climbs
+  def mark_sends
     climbs.order(:created_at).each do |climb|
       sent_grade = climb.grade
       pyramid_grade = pyramid_grades.detect { |g| g.grade == sent_grade }
