@@ -32,9 +32,10 @@ class ClimbsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "destroy" do
-    sign_in Person.create!(email: "person@example.com", password: "secret")
+    person = Person.create!(email: "person@example.com", password: "secret")
+    sign_in person
     discipline = Discipline.create!(name: "TR")
-    climb = Climb.create!(grade_decimal: 6, discipline: discipline)
+    climb = person.climbs.create!(grade_decimal: 6, discipline: discipline)
 
     delete climb_path(climb.id)
 
@@ -49,16 +50,16 @@ class ClimbsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "edit" do
-    sign_in Person.create!(email: "person@example.com", password: "secret")
-    climb = Climb.create!
+    person = Person.create!(email: "person@example.com", password: "secret")
+    sign_in person
+    climb = person.climbs.create!(grade: "5.9")
     get edit_climb_path(climb)
   end
 
   test "update" do
     person = Person.create!(email: "person@example.com", password: "secret")
     sign_in person
-
-    climb = Climb.create!
-    patch climb_path(pyramid, climb: { id: climb.id, climb: { name: "Five Gallon Buckets" } })
+    climb = person.climbs.create!(grade: "5.9")
+    patch climb_path(climb, climb: { name: "Five Gallon Buckets" })
   end
 end

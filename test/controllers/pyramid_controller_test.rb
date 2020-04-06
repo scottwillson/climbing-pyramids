@@ -7,7 +7,7 @@ class PyramidControllerTest < ActionDispatch::IntegrationTest
     person = Person.create!(email: "person@example.com", password: "secret")
     sign_in person
 
-    pyramid = Pyramid.create!
+    pyramid = person.pyramids.create!
     get edit_pyramid_path(pyramid)
   end
 
@@ -15,7 +15,7 @@ class PyramidControllerTest < ActionDispatch::IntegrationTest
     person = Person.create!(email: "person@example.com", password: "secret")
     sign_in person
 
-    pyramid = Pyramid.create!
+    pyramid = person.pyramids.create!
     patch pyramid_path(pyramid, params: { id: pyramid.id, pyramid: { redpoint_grade: "5.12c" } })
   end
 end

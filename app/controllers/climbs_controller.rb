@@ -20,7 +20,7 @@ class ClimbsController < ApplicationController
 
   def edit
     @climb = Climb.find(params[:id])
-    raise("Not your climb") unless climb.person == current_person
+    raise("Not your climb") unless @climb.person == current_person
   end
 
   def index
@@ -30,7 +30,7 @@ class ClimbsController < ApplicationController
 
   def update
     @climb = Climb.find(params[:id])
-    raise("Not your climb") unless climb.person == current_person
+    raise("Not your climb") unless @climb.person == current_person
 
     if @climb.update(climb_params)
       return redirect_to(edit_climb_path(@climb))

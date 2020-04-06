@@ -6,13 +6,13 @@ class Pyramid < ApplicationRecord
   delegate :name, to: :discipline
 
   belongs_to :discipline
-  has_many :climbs, ->(person) { where(person: person) }, through: :discipline
+  has_many :climbs, ->(pyramid) { where(person: pyramid.person) }, through: :discipline
   belongs_to :person, inverse_of: :pyramids
 
   validates :discipline, presence: true
   validates :person, presence: true
 
-  def climbs_above_redpoint
+  def climbs_at_or_above_redpoint
     return climbs unless redpoint_grade
 
     climbs.reject { |climb| climb.grade < redpoint_grade }
@@ -35,7 +35,7 @@ class Pyramid < ApplicationRecord
   end
 
   def create_grades
-    climbs_by_grade = climbs_above_redpoint.group_by(&:grade)
+    climbs_by_grade = climbs_at_or_above_redpoint.group_by(&:grade)
     complete_grades = complete_grades(climbs_by_grade)
 
     if complete_grades.any?

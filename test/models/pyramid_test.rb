@@ -9,7 +9,8 @@ class PyramidTest < ActiveSupport::TestCase
   end
 
   test ".new from redpoint" do
-    pyramid = Pyramid.new(redpoint_grade: "5.11c")
+    person = Person.create!(email: "person@example.com", password: "secret")
+    pyramid = person.pyramids.build(redpoint_grade: "5.11c")
     pyramid.create_grades
     assert_equal 4, pyramid.pyramid_grades.size
     assert_equal ["5.12b"], pyramid.pyramid_grades.first.climbs.map(&:name)
@@ -19,16 +20,18 @@ class PyramidTest < ActiveSupport::TestCase
   end
 
   test ".new no climbs" do
-    pyramid = Pyramid.new
+    person = Person.create!(email: "person@example.com", password: "secret")
+    pyramid = person.pyramids.build
     pyramid.create_grades
     assert_equal 4, pyramid.pyramid_grades.size
     assert_equal ["5.9"], pyramid.pyramid_grades.first.climbs.map(&:name)
   end
 
   test ".new from climb" do
+    person = Person.create!(email: "person@example.com", password: "secret")
     tr = Discipline.create!(name: "Indoor Top Rope")
-    Climb.create!(grade: "5.10a", discipline: tr)
-    pyramid = Pyramid.new(discipline: tr)
+    person.climbs.create!(grade: "5.10a", discipline: tr)
+    pyramid = person.pyramids.build(discipline: tr)
     pyramid.create_grades
     pyramid.mark_sends
     assert_equal 4, pyramid.pyramid_grades.size
@@ -51,10 +54,11 @@ class PyramidTest < ActiveSupport::TestCase
 
   test ".new from many climbs" do
     tr = Discipline.create!(name: "Indoor Top Rope")
-    Climb.create!(grade: "5.7", discipline: tr)
-    Climb.create!(grade: "5.8", discipline: tr)
-    Climb.create!(grade: "5.7", discipline: tr)
-    pyramid = Pyramid.new(discipline: tr)
+    person = Person.create!(email: "person@example.com", password: "secret123")
+    person.climbs.create!(grade: "5.7", discipline: tr)
+    person.climbs.create!(grade: "5.8", discipline: tr)
+    person.climbs.create!(grade: "5.7", discipline: tr)
+    pyramid = person.pyramids.create!(discipline: tr)
     pyramid.create_grades
     pyramid.mark_sends
     assert_equal 4, pyramid.pyramid_grades.size
@@ -96,15 +100,16 @@ class PyramidTest < ActiveSupport::TestCase
   end
 
   test ".new from more than 8 climbs per grade" do
-    1.times { Climb.create!(grade: "5.4") }
-    2.times { Climb.create!(grade: "5.5") }
-    10.times { Climb.create!(grade: "5.6") }
-    18.times { Climb.create!(grade: "5.7") }
-    14.times { Climb.create!(grade: "5.8") }
-    8.times { Climb.create!(grade: "5.9") }
-    2.times { Climb.create!(grade: "5.10a") }
+    person = Person.create!(email: "person@example.com", password: "secret")
+    1.times { person.climbs.create!(grade: "5.4") }
+    2.times { person.climbs.create!(grade: "5.5") }
+    10.times { person.climbs.create!(grade: "5.6") }
+    18.times { person.climbs.create!(grade: "5.7") }
+    14.times { person.climbs.create!(grade: "5.8") }
+    8.times { person.climbs.create!(grade: "5.9") }
+    2.times { person.climbs.create!(grade: "5.10a") }
 
-    pyramid = Pyramid.new(discipline: Discipline.first)
+    pyramid = person.pyramids.create!(discipline: Discipline.first)
     pyramid.create_grades
     pyramid.mark_sends
 
@@ -142,13 +147,14 @@ class PyramidTest < ActiveSupport::TestCase
   end
 
   test ".new_from_climbs climbs + redpoint" do
-    2.times { Climb.create!(grade: "5.4") }
-    1.times { Climb.create!(grade: "5.5") }
-    6.times { Climb.create!(grade: "5.6") }
-    6.times { Climb.create!(grade: "5.7") }
-    3.times { Climb.create!(grade: "5.8") }
+    person = Person.create!(email: "person@example.com", password: "secret")
+    2.times { person.climbs.create!(grade: "5.4") }
+    1.times { person.climbs.create!(grade: "5.5") }
+    6.times { person.climbs.create!(grade: "5.6") }
+    6.times { person.climbs.create!(grade: "5.7") }
+    3.times { person.climbs.create!(grade: "5.8") }
 
-    pyramid = Pyramid.new(discipline: Discipline.first, redpoint_grade: "5.7")
+    pyramid = person.pyramids.create!(discipline: Discipline.first, redpoint_grade: "5.7")
     pyramid.create_grades
     pyramid.mark_sends
     climb = pyramid.pyramid_grades.first.climbs.first
