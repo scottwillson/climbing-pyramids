@@ -21,7 +21,7 @@ class Pyramid < ApplicationRecord
   def complete_grades(climbs_by_grade)
     complete_grades = []
 
-    Grade.all.each_cons(4) do |grades|
+    Grade.all(discipline).each_cons(4) do |grades|
       if climbs_by_grade[grades[0]].present? && climbs_by_grade[grades[0]].size >= 8 &&
          climbs_by_grade[grades[1]].present? && climbs_by_grade[grades[1]].size >= 4 &&
          climbs_by_grade[grades[2]].present? && climbs_by_grade[grades[2]].size >= 2 &&
@@ -42,7 +42,7 @@ class Pyramid < ApplicationRecord
       max_complete_grade = complete_grades.max
       grade_begin = max_complete_grade.succ
     else
-      min_climbed_grade = climbs_by_grade.keys.min || redpoint_grade || Grade.new(decimal: "6")
+      min_climbed_grade = climbs_by_grade.keys.min || redpoint_grade || starting_grade
       grade_begin = min_climbed_grade
     end
 
@@ -94,5 +94,13 @@ class Pyramid < ApplicationRecord
 
     self.redpoint_grade_decimal = @redpoint_grade.decimal
     self.redpoint_grade_letter = @redpoint_grade.letter
+  end
+
+  def starting_grade
+    if discipline.boulder?
+      Grade.new(decimal: "0")
+    else
+      Grade.new(decimal: "6")
+    end
   end
 end

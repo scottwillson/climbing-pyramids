@@ -99,6 +99,53 @@ class PyramidTest < ActiveSupport::TestCase
     assert climb.goal?
   end
 
+  test ".new from many bouldering climbs" do
+    tr = Discipline.create!(name: "Outdoor Bouldering")
+    person = Person.create!(email: "person@example.com", password: "secret123")
+    person.climbs.create!(grade: "V2", discipline: tr)
+    person.climbs.create!(grade: "V3", discipline: tr)
+    person.climbs.create!(grade: "V2", discipline: tr)
+    pyramid = person.pyramids.create!(discipline: tr)
+    pyramid.create_grades
+    pyramid.mark_sends
+    assert_equal 4, pyramid.pyramid_grades.size
+
+    climb = pyramid.pyramid_grades.first.climbs.first
+    assert_equal "V5", climb.name
+    assert_not climb.sent?
+    assert climb.goal?
+
+    climb = pyramid.pyramid_grades.second.climbs.first
+    assert_equal "V4", climb.name
+    assert_not climb.sent?
+    assert climb.goal?
+
+    climb = pyramid.pyramid_grades.third.climbs.first
+    assert_equal "V3", climb.name
+    assert climb.sent?
+    assert climb.goal?
+
+    climb = pyramid.pyramid_grades.third.climbs.second
+    assert_equal "V3", climb.name
+    assert_not climb.sent?
+    assert climb.goal?
+
+    climb = pyramid.pyramid_grades.last.climbs.first
+    assert_equal "V2", climb.name
+    assert climb.sent?
+    assert climb.goal?
+
+    climb = pyramid.pyramid_grades.last.climbs.second
+    assert_equal "V2", climb.name
+    assert climb.sent?
+    assert climb.goal?
+
+    climb = pyramid.pyramid_grades.last.climbs.third
+    assert_equal "V2", climb.name
+    assert_not climb.sent?
+    assert climb.goal?
+  end
+
   test ".new from more than 8 climbs per grade" do
     person = Person.create!(email: "person@example.com", password: "secret")
     1.times { person.climbs.create!(grade: "5.4") }

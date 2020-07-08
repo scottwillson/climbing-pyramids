@@ -1,3 +1,4 @@
+* Show import from MP with textfield on homepage
 * Fix pyramid logic
 * Add pyramid floor
 * Edit pyramids

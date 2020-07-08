@@ -35,8 +35,6 @@ class CreateMountainProjectClimbs
   end
 
   def create_climbs(ticks)
-    ticks = ticks.reject { |tick| tick["rating"]["V"] }
-
     create_pyramids(ticks)
 
     ticks.each do |tick|
@@ -90,6 +88,7 @@ class CreateMountainProjectClimbs
       "-TR": Discipline.find_by!(name: "Outdoor Top Rope"),
       "Lead-Sport": Discipline.find_by!(name: "Outdoor Lead"),
       "Lead-Sport, TR": Discipline.find_by!(name: "Outdoor Lead"),
+      "-Boulder": Discipline.find_by!(name: "Outdoor Boulder"),
       "Flash-Boulder": Discipline.find_by!(name: "Outdoor Boulder"),
       "Send-Boulder": Discipline.find_by!(name: "Outdoor Boulder")
     }

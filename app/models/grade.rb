@@ -1,25 +1,45 @@
 # frozen_string_literal: true
 
-# decimal .4, .13
-# letter a-d
-# plus: 5.10a + 2 = 5.12c
+# decimal .4, .13, B, 1, 12
+# letter a-d, V
+# plus: 5.10a + 2 = 5.12c, V3 + 3 = V6
 #
 # boundaries: 5.0 .. 5.16d
 #             5.9 .. 5.10a
 #             5.11a .. 5.11d
+#             VB .. V16
 class Grade
+  BOULDER_REGEX = /V(\d{0,2}B{0,1})/.freeze
+  ROUTE_REGEX = /5\.(\d{1,2})([a-d]{0,1})/.freeze
+
   include Comparable
 
   attr_reader :decimal
   attr_reader :letter
 
-  def self.all
-    Grade.new(decimal: "4")..Grade.new(decimal: "15", letter: "d")
+  def self.all(discipline = nil)
+    if discipline&.boulder?
+      boulder_grades
+    elsif discipline
+      route_grades
+    else
+      route_grades.to_a + boulder_grades.to_a
+    end
+  end
+
+  def self.boulder_grades
+    Grade.new(letter: "V", decimal: "-1")..Grade.new(decimal: "16", letter: "V")
   end
 
   def self.decimal_from_string(string)
-    matches = string.match(/5\.(\d{1,2})([a-d]{0,1})/)
-    matches[1].to_i
+    matches = string.match(ROUTE_REGEX)
+    return matches[1].to_i if matches
+
+    matches = string.match(BOULDER_REGEX)
+    decimal = matches[1]
+    return -1 if decimal == "B"
+
+    decimal
   end
 
   def self.first
@@ -27,6 +47,7 @@ class Grade
   end
 
   def self.letter_from_string(string)
+    return "V" if string[/^V/]
     matches = string.match(/5\.(\d{1,2})([a-d]{0,1})/)
     matches[2] || ""
   end
@@ -39,24 +60,44 @@ class Grade
     Grade.new(decimal: decimal, letter: letter)
   end
 
+  def self.route_grades
+    Grade.new(decimal: "4")..Grade.new(decimal: "15", letter: "d")
+  end
+
   def initialize(decimal:, letter: "")
     @decimal = decimal.to_i
     @letter = letter
   end
 
-  def name
-    "5.#{decimal}#{letter}"
+  def boulder?
+    letter == "V"
   end
 
-  def plus(letter_grades)
+  def name
+    if boulder?
+      if decimal == -1
+        "VB"
+      else
+        "V#{decimal}"
+      end
+    else
+      "5.#{decimal}#{letter}"
+    end
+  end
+
+  def plus(grades)
     grade = dup
-    letter_grades.times do
+    grades.times do
       grade = grade.succ
     end
     grade
   end
 
   def succ
+    if boulder?
+      return Grade.new(decimal: decimal + 1, letter: "V")
+    end
+
     case decimal
     when 0..8
       Grade.new(decimal: decimal + 1)

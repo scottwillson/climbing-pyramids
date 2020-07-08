@@ -24,4 +24,8 @@ class Discipline < ApplicationRecord
   def self.without_climbs(person)
     all - with_climbs(person)
   end
+
+  def boulder?
+    name == "Indoor Boulder" || name == "Outdoor Boulder"
+  end
 end
