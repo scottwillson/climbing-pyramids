@@ -56,6 +56,12 @@ class ClimbsControllerTest < ActionDispatch::IntegrationTest
     get edit_climb_path(climb)
   end
 
+  test "new" do
+    person = Person.create!(email: "person@example.com", password: "secret")
+    sign_in person
+    get new_climb_path
+  end
+
   test "update" do
     person = Person.create!(email: "person@example.com", password: "secret")
     sign_in person

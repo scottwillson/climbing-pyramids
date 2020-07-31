@@ -12,7 +12,11 @@
   <%= f.text_field :mountain_project_type %>
   <%= f.text_field :mountain_project_user_rating %>
   <%= f.date_field :climbed_on %>
-  <%= f.static_control :created_at %>
-  <%= f.static_control :updated_at %>
-  <%= f.submit "Save" %>
+  <% if @climb.new_record? %>
+    <%= f.submit "Create" %>
+  <% else %>
+    <%= f.static_control :created_at %>
+    <%= f.static_control :updated_at %>
+    <%= f.submit "Save" %>
+  <% end %>
 <% end %>

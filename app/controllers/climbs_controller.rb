@@ -28,6 +28,11 @@ class ClimbsController < ApplicationController
     @climbs = Climb.includes(:discipline).where(person: current_person).all
   end
 
+  def new
+    @climb = Climb.new
+    render :edit
+  end
+
   def update
     @climb = Climb.find(params[:id])
     raise("Not your climb") unless @climb.person == current_person

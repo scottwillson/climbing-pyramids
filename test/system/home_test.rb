@@ -26,5 +26,11 @@ class HomeTest < ApplicationSystemTestCase
 
     click_on "Climbs"
     assert_selector("table.climbs")
+
+    click_on "Create"
+    fill_in "Name", with: "Slab"
+    select "5.10b"
+    click_on "Create"
+    assert_selector(".pyramid")
   end
 end
