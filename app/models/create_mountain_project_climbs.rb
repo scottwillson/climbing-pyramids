@@ -90,7 +90,8 @@ class CreateMountainProjectClimbs
       "Lead-Sport, TR": Discipline.find_by!(name: "Outdoor Lead"),
       "-Boulder": Discipline.find_by!(name: "Outdoor Boulder"),
       "Flash-Boulder": Discipline.find_by!(name: "Outdoor Boulder"),
-      "Send-Boulder": Discipline.find_by!(name: "Outdoor Boulder")
+      "Send-Boulder": Discipline.find_by!(name: "Outdoor Boulder"),
+      "TR-Boulder": Discipline.find_by!(name: "Outdoor Boulder")
     }
   end
 
