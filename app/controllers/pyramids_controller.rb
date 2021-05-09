@@ -3,6 +3,10 @@
 class PyramidsController < ApplicationController
   before_action :authenticate_person!
 
+  def index
+    @pyramids = current_person.pyramids.each(&:create_all_grades).each(&:mark_sends)
+  end
+
   def edit
     @pyramid = Pyramid.find(params[:id])
     raise("Not your pyramid") unless @pyramid.person == current_person

@@ -32,6 +32,8 @@
   </div>
 <% end %>
 
+<%= link_to "Full pyramids", pyramids_path %>
+
 <% if @disciplines_without_climbs.present? %>
   <div class="mt-4">
     <%= bootstrap_form_for(Climb.new) do |f| %>

@@ -57,6 +57,34 @@ class Pyramid < ApplicationRecord
     self
   end
 
+  def create_all_grades
+    climbs_by_grade = climbs.group_by(&:grade)
+
+    min_climbed_grade = climbs_by_grade.keys.min || redpoint_grade || starting_grade
+    grade_begin = min_climbed_grade
+
+    max_climbed_grade = climbs_by_grade.keys.max || redpoint_grade || starting_grade
+    grade_end = max_climbed_grade
+
+    grades = (grade_begin..grade_end)
+    grades.reverse_each do |grade|
+      pyramid_grade = PyramidGrade.new(grade)
+      climbs = climbs_by_grade[grade]
+      if climbs.present?
+        climbs.each do |climb|
+          pyramid_climb = PyramidClimb.new(grade, goal: true, sent: true)
+          pyramid_climb.climb = climb
+          pyramid_grade.climbs << pyramid_climb
+        end
+      else
+        pyramid_grade.climbs << PyramidClimb.new(grade, goal: true, sent: false)
+      end
+
+      pyramid_grades << pyramid_grade
+    end
+    self
+  end
+
   def mark_sends
     climbs.order(:created_at).each do |climb|
       sent_grade = climb.grade
