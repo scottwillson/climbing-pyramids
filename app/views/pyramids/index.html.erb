@@ -1,0 +1,35 @@
+<% @pyramids.sort_by(&:name).each do |pyramid| %>
+  <h3 class="pyramid_discipline mt-4"><%= pyramid.discipline.name %></h3>
+
+  <div class="pyramid">
+    <% pyramid.pyramid_grades.each.with_index do |pyramid_grade, row_index| %>
+      <div class="pyramid_grade row">
+        <div class="col-12">
+          <div class="btn-group" role="group" aria-label="Pyramid row">
+            <% pyramid_grade.climbs.each.with_index do |climb, col_index| %>
+              <% if climb.sent? %>
+                <%= link_to climb_path(climb.climb_id),
+                      method: :delete,
+                      title: climb.climb_name,
+                      class: "climb btn #{pyramid_climb_class(climb)} climb-#{row_index}-#{col_index}",
+                      id: "climb-#{pyramid.discipline.id}-#{row_index}-#{col_index}" do %>
+                  <%= climb.name %>
+                <% end %>
+              <% else %>
+                <%= link_to climbs_path(climb: { discipline_id: pyramid.discipline, grade: climb.grade }),
+                      method: :post,
+                      class: "climb btn #{pyramid_climb_class(climb)}",
+                      id: "climb-#{pyramid.discipline.id}-#{row_index}-#{col_index}" do %>
+                  <%= climb.name %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <small><%= link_to "Change redpoint", edit_pyramid_path(pyramid) %></small>
+  </div>
+<% end %>
+
+<%= link_to "Pyramids", root_path %>
