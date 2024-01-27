@@ -3,27 +3,27 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.3"
+ruby "3.2.1"
 
 gem "bcrypt", "~> 3.1.7"
-gem "bootstrap"
-gem "bootstrap_form"
+gem "bootsnap", require: false
+gem "cssbundling-rails"
 gem "devise"
-gem "jbuilder", "~> 2.7"
+gem "importmap-rails"
+gem "jbuilder"
 gem "pg", ">= 0.18", "< 2.0"
-gem "puma", "~> 4.3.8"
-gem "rails"
-gem "sass-rails", ">= 6"
-gem "turbolinks", "~> 5"
-gem "webpacker", "~> 4.0"
-
-# Use Active Storage variant
-# gem "image_processing", "~> 1.2"
-
-gem "bootsnap", ">= 1.4.2", require: false
+gem "puma", ">= 5.0"
+gem "rails", "~> 7.1.3"
+gem "redis", ">= 4.0.1"
+gem "sassc-rails"
+gem "sprockets-rails"
+gem "sqlite3", "~> 1.4"
+gem "stimulus-rails"
+gem "turbo-rails"
+gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 group :development, :test do
-  gem "byebug", platforms: %i[mri mingw x64_mingw]
+  gem "debug", platforms: %i[ mri windows ]
   gem "rubocop"
   gem "rubocop-performance"
   gem "rubocop-rails"
@@ -31,14 +31,11 @@ end
 
 group :development do
   gem "foreman"
-  gem "listen", ">= 3.0.5", "< 3.2"
-  gem "spring"
-  gem "spring-watcher-listen", "~> 2.0.0"
-  gem "web-console", ">= 3.3.0"
+  gem "web-console"
 end
 
 group :test do
-  gem "capybara", ">= 2.15"
+  gem "capybara"
   gem "selenium-webdriver"
   gem "webdrivers"
   gem "webmock"

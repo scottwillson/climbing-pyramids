@@ -1,2 +1,2 @@
-web: bundle exec puma -C config/puma.rb
-webpacker: ./bin/webpack-dev-server
+web: env RUBY_DEBUG_OPEN=true bin/rails server
+css: yarn watch:css

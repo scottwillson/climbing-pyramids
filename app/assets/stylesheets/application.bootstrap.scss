@@ -10,8 +10,8 @@ $font-family-monospace:  'Fira Mono', monospace !default;
 $font-family-base:       $font-family-sans-serif !default;
 $enable-responsive-font-sizes: true;
 
-@import "bootstrap";
-@import "rails_bootstrap_forms";
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons';
 
 .pyramid .btn {
   font-size: 0.8rem;

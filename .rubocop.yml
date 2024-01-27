@@ -3,8 +3,8 @@ require:
   - rubocop-rails
 
 AllCops:
-  TargetRubyVersion: 2.7
-  TargetRailsVersion: 6.0
+  TargetRubyVersion: 3.2
+  TargetRailsVersion: 7.1
 
 Rails:
   Enabled: true
