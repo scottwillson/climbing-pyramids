@@ -3,26 +3,6 @@
 class ClimbsController < ApplicationController
   before_action :authenticate_person!
 
-  def create
-    discipline = Discipline.find(climb_params[:discipline_id])
-    discipline.climbs.create!(grade: climb_params[:grade], person: current_person)
-    Pyramid.find_or_create_by!(discipline: discipline, person: current_person)
-    redirect_to root_path
-  end
-
-  def destroy
-    climb = Climb.find(params[:id])
-    raise("Not your climb") unless climb.person == current_person
-
-    climb.destroy!
-    redirect_to root_path
-  end
-
-  def edit
-    @climb = Climb.find(params[:id])
-    raise("Not your climb") unless @climb.person == current_person
-  end
-
   def index
     Discipline.seed! unless Discipline.any?
     @climbs = Climb.includes(:discipline).where(person: current_person).all
@@ -33,16 +13,34 @@ class ClimbsController < ApplicationController
     render :edit
   end
 
+  def edit
+    @climb = Climb.find(params[:id])
+    raise("Not your climb") unless @climb.person == current_person
+  end
+
+  def create
+    discipline = Discipline.find(climb_params[:discipline_id])
+    discipline.climbs.create!(grade: climb_params[:grade], person: current_person)
+    Pyramid.find_or_create_by!(discipline:, person: current_person)
+    redirect_to root_path
+  end
+
   def update
     @climb = Climb.find(params[:id])
     raise("Not your climb") unless @climb.person == current_person
 
-    if @climb.update(climb_params)
-      return redirect_to(edit_climb_path(@climb))
-    end
+    return redirect_to(edit_climb_path(@climb)) if @climb.update(climb_params)
 
     flash.now[:alert] = @climb.errors.full_messages
     render :edit
+  end
+
+  def destroy
+    climb = Climb.find(params[:id])
+    raise("Not your climb") unless climb.person == current_person
+
+    climb.destroy!
+    redirect_to root_path
   end
 
   private

@@ -35,7 +35,7 @@ class ClimbsControllerTest < ActionDispatch::IntegrationTest
     person = Person.create!(email: "person@example.com", password: "secret")
     sign_in person
     discipline = Discipline.create!(name: "TR")
-    climb = person.climbs.create!(grade_decimal: 6, discipline: discipline)
+    climb = person.climbs.create!(grade_decimal: 6, discipline:)
 
     delete climb_path(climb.id)
 

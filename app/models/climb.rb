@@ -4,8 +4,8 @@ class Climb < ApplicationRecord
   attribute :climbed_on, :date, default: -> { Time.zone.today }
 
   belongs_to :discipline,
-    default: -> { Discipline.find_or_create_by(name: "Outdoor Lead") },
-    inverse_of: :climbs
+             default: -> { Discipline.find_or_create_by(name: "Outdoor Lead") },
+             inverse_of: :climbs
 
   belongs_to :person, inverse_of: :climbs
 

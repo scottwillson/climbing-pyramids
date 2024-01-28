@@ -16,9 +16,7 @@ class PyramidsController < ApplicationController
     @pyramid = Pyramid.find(params[:id])
     raise("Not your pyramid") unless @pyramid.person == current_person
 
-    if @pyramid.update(pyramid_params)
-      return redirect_to(edit_pyramid_path(@pyramid))
-    end
+    return redirect_to(edit_pyramid_path(@pyramid)) if @pyramid.update(pyramid_params)
 
     flash.now[:alert] = @pyramid.errors.full_messages
     render :edit

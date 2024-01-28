@@ -13,7 +13,7 @@ class Discipline < ApplicationRecord
       "Outdoor Top Rope",
       "Trad"
     ].each do |name|
-      Discipline.create! name: name
+      Discipline.create! name:
     end
   end
 

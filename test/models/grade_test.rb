@@ -49,7 +49,6 @@ class GradeTest < ActiveSupport::TestCase
     assert_not_equal Grade.new(decimal: 4), Grade.new(decimal: 11, letter: "b")
   end
 
-  # rubocop:disable Lint/UselessComparison
   test "#<=>" do
     assert_equal(0, Grade.new(decimal: 9) <=> Grade.new(decimal: 9))
     assert_equal(-1, Grade.new(decimal: 8) <=> Grade.new(decimal: 9))
@@ -64,8 +63,6 @@ class GradeTest < ActiveSupport::TestCase
     assert_equal(1, "9" <=> Grade.new(decimal: 9))
     assert_equal(-1, Grade.new(decimal: 9) <=> "9")
   end
-  # rubocop:enable Lint/UselessComparison
-
   test "#plus" do
     grade = Grade.new_from_string("5.6").plus(1)
     assert_equal "5.7", grade.name

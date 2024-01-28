@@ -9,13 +9,12 @@
 #             5.11a .. 5.11d
 #             VB .. V16
 class Grade
-  BOULDER_REGEX = /V(\d{0,2}B{0,1})/.freeze
-  ROUTE_REGEX = /5\.(\d{1,2})([a-d]{0,1})/.freeze
+  BOULDER_REGEX = /V(\d{0,2}B{0,1})/
+  ROUTE_REGEX = /5\.(\d{1,2})([a-d]{0,1})/
 
   include Comparable
 
-  attr_reader :decimal
-  attr_reader :letter
+  attr_reader :decimal, :letter
 
   def self.all(discipline = nil)
     if discipline&.boulder?
@@ -48,6 +47,7 @@ class Grade
 
   def self.letter_from_string(string)
     return "V" if string[/^V/]
+
     matches = string.match(/5\.(\d{1,2})([a-d]{0,1})/)
     matches[2] || ""
   end
@@ -57,7 +57,7 @@ class Grade
 
     decimal = decimal_from_string(string)
     letter = letter_from_string(string)
-    Grade.new(decimal: decimal, letter: letter)
+    Grade.new(decimal:, letter:)
   end
 
   def self.route_grades
@@ -94,9 +94,7 @@ class Grade
   end
 
   def succ
-    if boulder?
-      return Grade.new(decimal: decimal + 1, letter: "V")
-    end
+    return Grade.new(decimal: decimal + 1, letter: "V") if boulder?
 
     case decimal
     when 0..8
@@ -106,11 +104,11 @@ class Grade
     else
       case letter
       when "a"
-        Grade.new(decimal: decimal, letter: "b")
+        Grade.new(decimal:, letter: "b")
       when "b"
-        Grade.new(decimal: decimal, letter: "c")
+        Grade.new(decimal:, letter: "c")
       when "c"
-        Grade.new(decimal: decimal, letter: "d")
+        Grade.new(decimal:, letter: "d")
       when "d"
         Grade.new(decimal: decimal + 1, letter: "a")
       end
@@ -125,9 +123,7 @@ class Grade
     "#<Grade 5.#{decimal}#{letter}>"
   end
 
-  def hash
-    name.hash
-  end
+  delegate :hash, to: :name
 
   def eql?(other)
     self == other

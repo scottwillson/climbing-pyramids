@@ -11,9 +11,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id])
     raise("Not your account") unless @person == current_person
 
-    if @person.update(person_params)
-      return redirect_to(edit_person_path(@person))
-    end
+    return redirect_to(edit_person_path(@person)) if @person.update(person_params)
 
     flash.now[:alert] = @person.errors.full_messages
     render :edit

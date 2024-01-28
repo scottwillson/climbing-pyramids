@@ -61,14 +61,14 @@ class CreateMountainProjectClimbs
       .map { |tick| discipline(tick) }
       .uniq
       .each do |discipline|
-        @person.pyramids.find_or_create_by!(discipline: discipline)
+        @person.pyramids.find_or_create_by!(discipline:)
       end
   end
 
   def discipline(tick)
     style = tick["style"]
     type = tick["type"]
-    key = "#{style}-#{type}".to_sym
+    key = :"#{style}-#{type}"
     discipline = discipline_map[key]
 
     raise("No discipline found for #{key}") unless discipline
@@ -96,7 +96,7 @@ class CreateMountainProjectClimbs
   end
 
   def key
-    ENV["MOUNTAIN_PROJECT_KEY"]
+    ENV.fetch("MOUNTAIN_PROJECT_KEY", nil)
   end
 
   def new_ticks(json)
@@ -118,7 +118,6 @@ class CreateMountainProjectClimbs
       keys << key
       unique_ticks << tick
     end
-
 
     unique_ticks
   end

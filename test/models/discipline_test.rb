@@ -13,7 +13,7 @@ class DisciplineTest < ActiveSupport::TestCase
 
     discipline = Discipline.create!(name: "Outdoor Top Rope")
     person.climbs.create!(grade: "5.8", discipline: tr)
-    person.climbs.create!(grade: "5.7", discipline: discipline)
+    person.climbs.create!(grade: "5.7", discipline:)
     assert_equal 2, Discipline.with_climbs(person).size
 
     anpther_person = Person.create!(email: "person_two@example.com", password: "secret123!")
