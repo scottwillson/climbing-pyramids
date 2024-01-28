@@ -31,6 +31,7 @@ group :development, :test do
 end
 
 group :development do
+  gem "brakeman"
   gem "foreman"
   gem "web-console"
 end
