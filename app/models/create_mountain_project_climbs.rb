@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateMountainProjectClimbs
   def initialize(person)
     @person = person
@@ -103,7 +105,7 @@ class CreateMountainProjectClimbs
     json["ticks"].reject do |tick|
       tick["leadStyle"][/Fell/] ||
         tick["style"][/Follow/] ||
-        @person.climbs.where(mountain_project_tick_id: tick["tickId"]).exists?
+        @person.climbs.exists?(mountain_project_tick_id: tick["tickId"])
     end
   end
 
@@ -123,6 +125,6 @@ class CreateMountainProjectClimbs
   end
 
   def route_ids(json)
-    json.map { |r| r["routeId"] }.join(",")
+    json.map { |r| r["routeId"] }.join(",") # rubocop:disable Rails/Pluck
   end
 end

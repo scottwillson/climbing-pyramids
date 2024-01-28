@@ -9,9 +9,6 @@ class Climb < ApplicationRecord
 
   belongs_to :person, inverse_of: :climbs
 
-  validates :discipline, presence: true
-  validates :person, presence: true
-
   def grade
     @grade ||= Grade.new(decimal: grade_decimal, letter: grade_letter)
   end

@@ -7,9 +7,6 @@ class Pyramid < ApplicationRecord
   has_many :climbs, ->(pyramid) { where(person: pyramid.person) }, through: :discipline
   belongs_to :person, inverse_of: :pyramids
 
-  validates :discipline, presence: true
-  validates :person, presence: true
-
   def climbs_at_or_above_redpoint
     return climbs unless redpoint_grade
 
