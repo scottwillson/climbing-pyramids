@@ -17,15 +17,18 @@ class Pyramid < ApplicationRecord
     complete_grades = []
 
     Grade.all(discipline).each_cons(4) do |grades|
-      next unless climbs_by_grade[grades[0]].present? && climbs_by_grade[grades[0]].size >= 8 &&
-                  climbs_by_grade[grades[1]].present? && climbs_by_grade[grades[1]].size >= 4 &&
-                  climbs_by_grade[grades[2]].present? && climbs_by_grade[grades[2]].size >= 2 &&
-                  climbs_by_grade[grades[3]].present? && climbs_by_grade[grades[3]].size >= 1
-
+      next unless row_full?(climbs_by_grade, grades)
       complete_grades << grades[0]
     end
 
     complete_grades
+  end
+
+  def row_full?(climbs_by_grade, grades)
+    climbs_by_grade[grades[0]].present? && climbs_by_grade[grades[0]].size >= 8 &&
+      climbs_by_grade[grades[1]].present? && climbs_by_grade[grades[1]].size >= 4 &&
+      climbs_by_grade[grades[2]].present? && climbs_by_grade[grades[2]].size >= 2 &&
+      climbs_by_grade[grades[3]].present? && climbs_by_grade[grades[3]].size >= 1
   end
 
   def create_grades
