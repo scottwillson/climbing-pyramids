@@ -50,9 +50,9 @@ class GradeTest < ActiveSupport::TestCase
   end
 
   test "#<=>" do
-    assert_equal(0, Grade.new(decimal: 9) <=> Grade.new(decimal: 9))
+    assert_equal(0, Grade.new(decimal: 9) <=> Grade.new(decimal: 9)) # rubocop:disable Lint/BinaryOperatorWithIdenticalOperands
     assert_equal(-1, Grade.new(decimal: 8) <=> Grade.new(decimal: 9))
-    assert_equal(0, Grade.new(decimal: 10, letter: "b") <=> Grade.new(decimal: 10, letter: "b"))
+    assert_equal(0, Grade.new(decimal: 10, letter: "b") <=> Grade.new(decimal: 10, letter: "b")) # rubocop:disable Lint/BinaryOperatorWithIdenticalOperands
     assert_equal(1, Grade.new(decimal: 10, letter: "d") <=> Grade.new(decimal: 10, letter: "b"))
     assert_equal(-1, Grade.new(decimal: 10, letter: "b") <=> Grade.new(decimal: 11, letter: "b"))
     assert_equal(-1, Grade.new(decimal: 4) <=> Grade.new(decimal: 11, letter: "b"))

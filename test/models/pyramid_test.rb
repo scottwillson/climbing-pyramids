@@ -148,7 +148,7 @@ class PyramidTest < ActiveSupport::TestCase
 
   test ".new from more than 8 climbs per grade" do
     person = Person.create!(email: "person@example.com", password: "secret")
-    1.times { person.climbs.create!(grade: "5.4") }
+    person.climbs.create!(grade: "5.4")
     2.times { person.climbs.create!(grade: "5.5") }
     10.times { person.climbs.create!(grade: "5.6") }
     18.times { person.climbs.create!(grade: "5.7") }
@@ -196,7 +196,7 @@ class PyramidTest < ActiveSupport::TestCase
   test ".new_from_climbs climbs + redpoint" do
     person = Person.create!(email: "person@example.com", password: "secret")
     2.times { person.climbs.create!(grade: "5.4") }
-    1.times { person.climbs.create!(grade: "5.5") }
+    person.climbs.create!(grade: "5.5")
     6.times { person.climbs.create!(grade: "5.6") }
     6.times { person.climbs.create!(grade: "5.7") }
     3.times { person.climbs.create!(grade: "5.8") }

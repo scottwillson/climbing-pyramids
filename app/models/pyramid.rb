@@ -18,6 +18,7 @@ class Pyramid < ApplicationRecord
 
     Grade.all(discipline).each_cons(4) do |grades|
       next unless row_full?(climbs_by_grade, grades)
+
       complete_grades << grades[0]
     end
 
@@ -56,12 +57,8 @@ class Pyramid < ApplicationRecord
 
   def create_all_grades
     climbs_by_grade = climbs.group_by(&:grade)
-
-    min_climbed_grade = climbs_by_grade.keys.min || redpoint_grade || starting_grade
-    grade_begin = min_climbed_grade
-
-    max_climbed_grade = climbs_by_grade.keys.max || redpoint_grade || starting_grade
-    grade_end = max_climbed_grade
+    grade_begin = min_climbed_grade(climbs_by_grade)
+    grade_end = max_climbed_grade(climbs_by_grade)
 
     grades = (grade_begin..grade_end)
     grades.reverse_each do |grade|
@@ -95,6 +92,14 @@ class Pyramid < ApplicationRecord
       pyramid_climb.climb = climb
     end
     self
+  end
+
+  def max_climbed_grade(climbs_by_grade)
+    climbs_by_grade.keys.max || redpoint_grade || starting_grade
+  end
+
+  def min_climbed_grade(climbs_by_grade)
+    climbs_by_grade.keys.min || redpoint_grade || starting_grade
   end
 
   def pyramid_grades
