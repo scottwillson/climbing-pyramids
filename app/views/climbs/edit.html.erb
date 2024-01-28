@@ -15,8 +15,8 @@
   <% if @climb.new_record? %>
     <%= f.submit "Create" %>
   <% else %>
-    <%= f.static_control :created_at %>
-    <%= f.static_control :updated_at %>
+    <%= @climb.created_at %>
+    <%= @climb.updated_at %>
     <%= f.submit "Save" %>
   <% end %>
 <% end %>
