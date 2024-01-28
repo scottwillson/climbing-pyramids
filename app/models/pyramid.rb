@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 class Pyramid < ApplicationRecord
-  attribute :discipline_id, :integer, default: -> { Discipline.find_or_create_by(name: "Outdoor Lead").id }
-
   delegate :name, to: :discipline
 
-  belongs_to :discipline
+  belongs_to :discipline, default: -> { Discipline.find_or_create_by(name: "Outdoor Lead") }
   has_many :climbs, ->(pyramid) { where(person: pyramid.person) }, through: :discipline
   belongs_to :person, inverse_of: :pyramids
 
@@ -125,7 +123,7 @@ class Pyramid < ApplicationRecord
   end
 
   def starting_grade
-    if discipline.boulder?
+    if discipline&.boulder?
       Grade.new(decimal: "0")
     else
       Grade.new(decimal: "6")
